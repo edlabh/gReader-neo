@@ -220,4 +220,10 @@
 
     <!-- Round 3: offline cache -->
     <string name="prefetch_images">Preload images (Wi-Fi)</string>
+
+    <!-- Reveal read articles -->
+    <plurals name="show_read_articles">
+        <item quantity="one">Show read article (%1$d)</item>
+        <item quantity="other">Show read articles (%1$d)</item>
+    </plurals>
 </resources>

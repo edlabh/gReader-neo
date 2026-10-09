@@ -24,7 +24,7 @@ Leitor de RSS/feeds moderno para **Android 15+**, reconstruído a partir da enge
 - [x] **Motor de sync**: replay da outbox → markers · pull de assinaturas/pastas · pull de artigos (continuation/newerThan) · reconciliação de leitura (`streams/ids`) · contadores
 - [x] **Agendamento flexível**: seletor único com **Atualização Manual** (sem background) e frequências de 5 min a 24 h (1 h padrão)
 - [x] **Idiomas**: Português (BR) · Inglês (padrão) · Espanhol — segue o idioma do sistema (inclui mensagens de sync/erros/acessibilidade)
-- [x] **Lista de artigos**: por feed/pasta/todos, busca local, seleção múltipla, swipe (lido), marcar tudo lido
+- [x] **Lista de artigos**: por feed/pasta/todos, busca local, seleção múltipla, swipe (lido), marcar tudo lido, **"Mostrar artigos lidos (N)"** no rodapé/estado vazio quando o filtro de não lidos esconde os artigos já lidos
 - [x] **Personalização da lista**: densidade, tamanho da fonte, linha entre artigos, **modos Lista/Grade**, **ordenação (recentes/antigos)**, **não lidos em negrito / lidos discretos** — as escolhas ficam **salvas automaticamente** e valem para as próximas aberturas (aplicadas em tempo real)
 - [x] **Armazenamento**: retenção configurável (1/3/7/14/30 dias ou nunca; **padrão 7 dias**; estrelados preservados) com limpeza automática pós-sync
 - [x] **Leitor 3 modos**: Feed · Leitura (Readability4J) · Web, com estrela, compartilhar e **navegador embutido/externo configurável (padrão: embutido, com histórico de navegação no botão voltar)**

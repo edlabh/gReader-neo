@@ -112,6 +112,18 @@ interface ArticleDao {
         unreadOnly: Boolean,
     ): Flow<List<ArticleListItem>>
 
+    /**
+     * Quantos artigos lidos (ainda no banco, dentro da retenção) o filtro
+     * "somente não lidos" está escondendo no escopo atual.
+     */
+    @Query(
+        "SELECT COUNT(*) FROM articles WHERE read = 1 " +
+            "AND (:feedId < 0 OR feedId = :feedId) " +
+            "AND (:folderUid IS NULL OR feedId IN (SELECT feedId FROM tag2sub WHERE tagUid = :folderUid)) " +
+            "AND (:query = '' OR title LIKE '%' || :query || '%')",
+    )
+    fun observeReadCount(feedId: Long, folderUid: String?, query: String): Flow<Int>
+
     @Query("SELECT * FROM articles WHERE id = :id")
     suspend fun byId(id: Long): ArticleEntity?
 

@@ -46,6 +46,7 @@ import androidx.compose.material.icons.filled.RssFeed
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.outlined.CloudOff
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.AlertDialog
@@ -53,6 +54,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -96,6 +98,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -197,6 +200,11 @@ fun HomeScreen(
         .observeList(feedId, folderUid, query, settings.listSortOldest, settings.listUnreadOnly)
         .collectAsStateWithLifecycle(initialValue = emptyList())
 
+    // Lidos ainda no banco que o filtro "somente não lidos" está escondendo.
+    val hiddenReadCount by app.database.articleDao()
+        .observeReadCount(feedId, folderUid, query)
+        .collectAsStateWithLifecycle(initialValue = 0)
+
     val filterTitle = when (val current = filter) {
         FeedFilter.All -> stringResource(R.string.all_articles)
         is FeedFilter.Folder -> current.tag.label
@@ -247,6 +255,11 @@ fun HomeScreen(
         } else {
             markAllRead()
         }
+    }
+
+    /** Revela os artigos lidos restantes (desliga o filtro "somente não lidos"). */
+    fun showReadArticles() {
+        scope.launch { app.settings.setListUnreadOnly(false) }
     }
 
     // Sync ao abrir (configurável), apenas quando há sessão.
@@ -535,6 +548,8 @@ fun HomeScreen(
                             hasFeeds = feeds.isNotEmpty(),
                             hasQuery = query.isNotBlank(),
                             unreadOnly = settings.listUnreadOnly,
+                            hiddenReadCount = hiddenReadCount,
+                            onShowRead = { showReadArticles() },
                             onConnectFeedly = onConnectFeedly,
                             modifier = Modifier.fillMaxSize(),
                         )
@@ -600,6 +615,33 @@ fun HomeScreen(
                                             modifier = Modifier.padding(horizontal = 16.dp),
                                             color = MaterialTheme.colorScheme.outline.copy(alpha = 0.12f),
                                         )
+                                    }
+                                }
+                            }
+                            // Feed parcialmente lido: atalho no rodapé para revelar os lidos restantes.
+                            if (settings.listUnreadOnly && hiddenReadCount > 0) {
+                                item {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                                        contentAlignment = Alignment.Center,
+                                    ) {
+                                        TextButton(onClick = { showReadArticles() }) {
+                                            Icon(
+                                                imageVector = Icons.Filled.Visibility,
+                                                contentDescription = null,
+                                                modifier = Modifier.size(18.dp),
+                                            )
+                                            Spacer(Modifier.width(8.dp))
+                                            Text(
+                                                pluralStringResource(
+                                                    R.plurals.show_read_articles,
+                                                    hiddenReadCount,
+                                                    hiddenReadCount,
+                                                ),
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -1095,7 +1137,9 @@ private fun EmptyState(
     hasFeeds: Boolean,
     hasQuery: Boolean,
     unreadOnly: Boolean,
+    hiddenReadCount: Int,
     onConnectFeedly: () -> Unit,
+    onShowRead: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -1143,6 +1187,24 @@ private fun EmptyState(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
+        if (connected && hasFeeds && unreadOnly && hiddenReadCount > 0) {
+            Spacer(Modifier.height(24.dp))
+            FilledTonalButton(onClick = onShowRead) {
+                Icon(
+                    imageVector = Icons.Filled.Visibility,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+                Spacer(Modifier.width(8.dp))
+                Text(
+                    pluralStringResource(
+                        R.plurals.show_read_articles,
+                        hiddenReadCount,
+                        hiddenReadCount,
+                    ),
+                )
+            }
+        }
         if (!connected) {
             Spacer(Modifier.height(24.dp))
             TextButton(onClick = onConnectFeedly) {

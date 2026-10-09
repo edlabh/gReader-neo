@@ -220,4 +220,10 @@
 
     <!-- Ronda 3: caché offline -->
     <string name="prefetch_images">Precargar imágenes (Wi-Fi)</string>
+
+    <!-- Revelar artículos leídos -->
+    <plurals name="show_read_articles">
+        <item quantity="one">Mostrar artículo leído (%1$d)</item>
+        <item quantity="other">Mostrar artículos leídos (%1$d)</item>
+    </plurals>
 </resources>
