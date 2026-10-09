@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -127,7 +128,7 @@ fun SubscriptionsScreen(onBack: () -> Unit) {
                         .mapNotNull { link -> feeds.firstOrNull { it.id == link.feedId } }
                     if (folderFeeds.isNotEmpty()) {
                         item(key = "header-${folder.uid}") {
-                            SectionHeader(folder.label)
+                            SectionHeader(folder.label, folderFeeds.size)
                         }
                         items(folderFeeds, key = { it.id }) { feed ->
                             SubscriptionRow(
@@ -141,7 +142,7 @@ fun SubscriptionsScreen(onBack: () -> Unit) {
                 val standalone = feeds.filter { it.id !in linkedFeedIds }
                 if (standalone.isNotEmpty()) {
                     item(key = "header-none") {
-                        SectionHeader(stringResource(R.string.folder_none))
+                        SectionHeader(stringResource(R.string.folder_none), standalone.size)
                     }
                     items(standalone, key = { it.id }) { feed ->
                         SubscriptionRow(
@@ -227,14 +228,25 @@ private fun CenteredBox(modifier: Modifier = Modifier, content: @Composable () -
     ) { content() }
 }
 
+/** Cabeçalho da seção com a contagem de feeds (dois tons: título + número). */
 @Composable
-private fun SectionHeader(title: String) {
-    Text(
-        text = title.uppercase(),
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.primary,
+private fun SectionHeader(title: String, count: Int) {
+    Row(
         modifier = Modifier.padding(start = 16.dp, top = 14.dp, bottom = 2.dp),
-    )
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = title.uppercase(),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.primary,
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = count.toString(),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
 }
 
 /**
