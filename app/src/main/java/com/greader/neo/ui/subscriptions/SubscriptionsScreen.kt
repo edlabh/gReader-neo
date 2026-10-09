@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -132,7 +132,6 @@ fun SubscriptionsScreen(onBack: () -> Unit) {
                         items(folderFeeds, key = { it.id }) { feed ->
                             SubscriptionRow(
                                 feed = feed,
-                                folderLabel = folder.label,
                                 onEdit = { editing = feed },
                                 onDelete = { deleting = feed },
                             )
@@ -147,7 +146,6 @@ fun SubscriptionsScreen(onBack: () -> Unit) {
                     items(standalone, key = { it.id }) { feed ->
                         SubscriptionRow(
                             feed = feed,
-                            folderLabel = null,
                             onEdit = { editing = feed },
                             onDelete = { deleting = feed },
                         )
@@ -235,43 +233,38 @@ private fun SectionHeader(title: String) {
         text = title.uppercase(),
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(start = 24.dp, top = 20.dp, bottom = 6.dp),
+        modifier = Modifier.padding(start = 16.dp, top = 14.dp, bottom = 2.dp),
     )
 }
 
+/**
+ * Linha compacta: uma linha de título + ações. A pasta já aparece no cabeçalho
+ * da seção, então não é repetida em cada feed.
+ */
 @Composable
 private fun SubscriptionRow(
     feed: FeedEntity,
-    folderLabel: String?,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 24.dp, end = 8.dp, top = 10.dp, bottom = 10.dp),
+            .padding(start = 16.dp, end = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Column(Modifier.weight(1f)) {
-            Text(
-                text = feed.title,
-                style = MaterialTheme.typography.bodyLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-            folderLabel?.let {
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-        }
+        Text(
+            text = feed.title,
+            style = MaterialTheme.typography.bodyLarge,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f),
+        )
         IconButton(onClick = onEdit) {
             Icon(
                 imageVector = Icons.Filled.Edit,
                 contentDescription = stringResource(R.string.cd_edit),
-                modifier = Modifier.width(20.dp),
+                modifier = Modifier.size(20.dp),
             )
         }
         IconButton(onClick = onDelete) {
@@ -279,12 +272,12 @@ private fun SubscriptionRow(
                 imageVector = Icons.Outlined.Delete,
                 contentDescription = stringResource(R.string.cd_delete),
                 tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier.width(20.dp),
+                modifier = Modifier.size(20.dp),
             )
         }
     }
     HorizontalDivider(
-        modifier = Modifier.padding(horizontal = 24.dp),
+        modifier = Modifier.padding(horizontal = 16.dp),
         color = MaterialTheme.colorScheme.outline.copy(alpha = 0.12f),
     )
 }
