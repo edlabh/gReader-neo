@@ -1,0 +1,1464 @@
+{
+ "xml_screens": {
+  "pref_article_controls": [
+   {
+    "key": "auto_hide_item_controls",
+    "widget": "CheckBoxPreference",
+    "title": "Auto hide controls",
+    "summary": "Automatically hide controls on scroll",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "show_navigation_bar",
+    "widget": "CheckBoxPreference",
+    "title": "Show navigation bar",
+    "summary": "Display navigation bar for navigating through articles",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "show_item_bar",
+    "widget": "CheckBoxPreference",
+    "title": "Show item bar",
+    "summary": "Display item bar for editing articles",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "show_zoom_button",
+    "widget": "CheckBoxPreference",
+    "title": "Zoom buttons",
+    "summary": "Display zoom buttons",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "item_volume_key_action",
+    "widget": "ListPreference",
+    "title": "Volume key (article view)",
+    "summary": "Set volume key action for article view",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "None",
+     "Previous/Next article",
+     "Scroll up/down"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "item_navigation_gesture",
+    "widget": "ListPreference",
+    "title": "Navigation gestures",
+    "summary": "Define gesture behaviours for article view",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "Disable",
+     "Previous/Next article"
+    ],
+    "entryValues": [
+     "0",
+     "1"
+    ]
+   },
+   {
+    "key": "item_double_tap_action",
+    "widget": "ListPreference",
+    "title": "Double tap",
+    "summary": "Define an action for double-tapping in article view",
+    "default": "9",
+    "dependency": null,
+    "entries": [
+     "None",
+     "Read/Unread",
+     "Star/Unstar",
+     "Save/Unsave",
+     "Open in browser",
+     "Share",
+     "Readability",
+     "Back to feed list"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "3",
+     "4",
+     "5",
+     "14",
+     "9",
+     "13"
+    ]
+   },
+   {
+    "key": "item_inapp_browser",
+    "widget": "CheckBoxPreference",
+    "title": "In-app Browser",
+    "summary": "Open url in Chrome Custom Tab instead of external browser",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "item_inapp_youtube",
+    "widget": "CheckBoxPreference",
+    "title": "In-app Youtube player",
+    "summary": "Load Youtube video within the app",
+    "default": "true",
+    "dependency": null
+   }
+  ],
+  "pref_backup": [
+   {
+    "key": "preference_backup",
+    "widget": "PreferenceScreen",
+    "title": "Backup",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "preference_restore",
+    "widget": "PreferenceScreen",
+    "title": "Restore",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   }
+  ],
+  "pref_cache": [
+   {
+    "key": "db_cache_location",
+    "widget": "ListPreference",
+    "title": "Database storage",
+    "summary": "Database storage location",
+    "default": "local",
+    "dependency": null,
+    "entries": [
+     "Phone",
+     "SD Card"
+    ],
+    "entryValues": [
+     "local",
+     "sdcard"
+    ]
+   },
+   {
+    "key": "preference_offline_storage",
+    "widget": "PreferenceScreen",
+    "title": "Offline content storage",
+    "summary": "Offline content storage location",
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "cache_auto_clean_read",
+    "widget": "ListPreference",
+    "title": "Auto cleanup read items",
+    "summary": "How long to keep cached items after reading?",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "Instantly",
+     "1 day",
+     "2 days",
+     "3 days",
+     "5 days",
+     "1 week",
+     "2 weeks",
+     "4 weeks",
+     "Never"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "5",
+     "7",
+     "14",
+     "28",
+     "-1"
+    ]
+   },
+   {
+    "key": "cache_auto_clean_unread",
+    "widget": "ListPreference",
+    "title": "Auto cleanup unread items",
+    "summary": "How long to keep unread items after syncing?",
+    "default": "-1",
+    "dependency": null,
+    "entries": [
+     "1 day",
+     "2 days",
+     "3 days",
+     "5 days",
+     "1 week",
+     "2 weeks",
+     "4 weeks",
+     "Never"
+    ],
+    "entryValues": [
+     "1",
+     "2",
+     "3",
+     "5",
+     "7",
+     "14",
+     "28",
+     "-1"
+    ]
+   },
+   {
+    "key": "cache_keep_starred",
+    "widget": "CheckBoxPreference",
+    "title": "Keep starred items",
+    "summary": "Keep starred items on cleanup",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "cache_keep_cached",
+    "widget": "CheckBoxPreference",
+    "title": "Keep cached items",
+    "summary": "Keep cached items on cleanup",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "cache_auto_cleanup_images",
+    "widget": "ListPreference",
+    "title": "Auto cleanup image cache",
+    "summary": "How many images (thumbnails) to keep in cache?",
+    "default": "1000",
+    "dependency": null,
+    "entries": [
+     "Instantly",
+     "100",
+     "200",
+     "500",
+     "1000",
+     "2000",
+     "Never"
+    ],
+    "entryValues": [
+     "0",
+     "100",
+     "200",
+     "500",
+     "1000",
+     "2000",
+     "-1"
+    ]
+   }
+  ],
+  "pref_look_and_feel": [
+   {
+    "key": "application_language",
+    "widget": "ListPreference",
+    "title": "Languages",
+    "summary": null,
+    "default": "",
+    "dependency": null,
+    "entries": [
+     "System",
+     "Azerbaijani",
+     "Dansk",
+     "Deutsch",
+     "English",
+     "Español",
+     "Italiano",
+     "Nederlands",
+     "Pyccĸий",
+     "Slovenčina",
+     "Slovenščina",
+     "Français",
+     "Galego",
+     "Hebrew",
+     "Hungarian",
+     "Korean",
+     "Lietuvių",
+     "Polski",
+     "Português",
+     "Português (Brasil)",
+     "Türk",
+     "Український",
+     "Uyghur",
+     "Svenska",
+     "Čeština",
+     "български език",
+     "Català",
+     "Tiếng Việt",
+     "العربية",
+     "中文(简体)",
+     "中文(繁體)",
+     "中文(HK)",
+     "日本語"
+    ],
+    "entryValues": [
+     "",
+     "az",
+     "da",
+     "de",
+     "en",
+     "es",
+     "it",
+     "nl",
+     "ru",
+     "sk",
+     "sl",
+     "fr",
+     "gl",
+     "iw",
+     "hu",
+     "ko",
+     "lt",
+     "pl",
+     "pt_PT",
+     "pt_BR",
+     "tr",
+     "uk",
+     "ug",
+     "sv",
+     "cs",
+     "bg",
+     "ca",
+     "vi",
+     "ar",
+     "zh_CN",
+     "zh_TW",
+     "zh_HK",
+     "ja"
+    ]
+   },
+   {
+    "key": "application_theme",
+    "widget": "ListPreference",
+    "title": "Themes",
+    "summary": null,
+    "default": "0",
+    "dependency": null,
+    "entries": [
+     "Default",
+     "Green",
+     "Sepia",
+     "Dark",
+     "Black"
+    ],
+    "entryValues": [
+     "0",
+     "5",
+     "3",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "application_theme_auto_dark",
+    "widget": "CheckBoxPreference",
+    "title": "Auto Dark Mode",
+    "summary": "Select dark theme depending on system settings",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "application_theme_dark",
+    "widget": "ListPreference",
+    "title": "Dark Theme",
+    "summary": "Select dark theme when auto dark mode is enabled",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "Dark",
+     "Black"
+    ],
+    "entryValues": [
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "fullscreen",
+    "widget": "CheckBoxPreference",
+    "title": "Fullscreen",
+    "summary": null,
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "preference_category_home_view",
+    "widget": "PreferenceCategory",
+    "title": "Home view",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "use_phone_ui",
+    "widget": "CheckBoxPreference",
+    "title": "Use phone UI",
+    "summary": "Use phone UI instead of the tablet UI",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "home_landscape_dual_pane",
+    "widget": "CheckBoxPreference",
+    "title": "Landscape dual view",
+    "summary": "Turn on dual pane in landscape mode",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "home_hide_article_list",
+    "widget": "CheckBoxPreference",
+    "title": "Hide article list pane",
+    "summary": "Hide article list pane while sub list is opening",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "rich_list",
+    "widget": "PreferenceScreen",
+    "title": "Rich Article List",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "quick_actions",
+    "widget": "PreferenceScreen",
+    "title": "Quick actions",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "item_list_volume_key_action",
+    "widget": "ListPreference",
+    "title": "Volume key (article list)",
+    "summary": "Set volume key action for article list",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "None",
+     "Scroll up/down",
+     "Scroll and mark read"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "item_list_font_size",
+    "widget": "ListPreference",
+    "title": "List font size",
+    "summary": "Specify article list font size",
+    "default": "16",
+    "dependency": null,
+    "entries": [
+     "Tiny",
+     "Small",
+     "Medium",
+     "Large",
+     "Huge"
+    ],
+    "entryValues": [
+     "12",
+     "14",
+     "16",
+     "18",
+     "20"
+    ]
+   },
+   {
+    "key": "preference_category_article_view",
+    "widget": "PreferenceCategory",
+    "title": "Article View",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "item_nav_bar",
+    "widget": "ListPreference",
+    "title": "Navigation bar",
+    "summary": "Show navigation bar on article view",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "Disable",
+     "Left",
+     "Right"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "item_pinch_zoom",
+    "widget": "CheckBoxPreference",
+    "title": "Pinch zoom",
+    "summary": "Zooming with two fingers. Turn off if you encounter any issues.",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "item_hardware_accelerated",
+    "widget": "CheckBoxPreference",
+    "title": "Hardware acceleration",
+    "summary": "Hardware acceleration can improve rendering, but may also cause unwanted behaviours. Turn off if you encounter any issues while viewing articles.",
+    "default": "true",
+    "dependency": null
+   }
+  ],
+  "pref_mark_read": [
+   {
+    "key": "preference_category_mark_read",
+    "widget": "PreferenceCategory",
+    "title": "Mark all as read",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "fab_position",
+    "widget": "ListPreference",
+    "title": "Position",
+    "summary": null,
+    "default": "2",
+    "dependency": null,
+    "entries": [
+     "Action bar",
+     "Left",
+     "Right"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "fab_style",
+    "widget": "ListPreference",
+    "title": "Style",
+    "summary": null,
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "Simple",
+     "Material"
+    ],
+    "entryValues": [
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "fab_opacity",
+    "widget": "ListPreference",
+    "title": "Opacity",
+    "summary": null,
+    "default": "100",
+    "dependency": null,
+    "entries": [
+     "Fully transparent",
+     "25% visible",
+     "50% visible",
+     "75% visible",
+     "Fully opaque"
+    ],
+    "entryValues": [
+     "0",
+     "25",
+     "50",
+     "75",
+     "100"
+    ]
+   },
+   {
+    "key": "show_feeds_after_mark_all",
+    "widget": "CheckBoxPreference",
+    "title": "Show feeds after Mark all",
+    "summary": null,
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "confirm_mark_as_read_all",
+    "widget": "CheckBoxPreference",
+    "title": "All items",
+    "summary": "Show confirmation dialog for all articles",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "confirm_mark_as_read_sub",
+    "widget": "CheckBoxPreference",
+    "title": "Feed or Tag",
+    "summary": "Show confirmation dialog for feed or tag",
+    "default": "false",
+    "dependency": null
+   }
+  ],
+  "pref_menu": [
+   {
+    "key": "sync",
+    "widget": "PreferenceScreen",
+    "title": "Synchronization",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "offline",
+    "widget": "PreferenceScreen",
+    "title": "Offline Reading",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "notification",
+    "widget": "PreferenceScreen",
+    "title": "Notifications",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "cache",
+    "widget": "PreferenceScreen",
+    "title": "Cache",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "look_feel",
+    "widget": "PreferenceScreen",
+    "title": "Look and Feel",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "reading",
+    "widget": "PreferenceScreen",
+    "title": "Reading Preferences",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "services",
+    "widget": "PreferenceScreen",
+    "title": "Services",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "backup",
+    "widget": "PreferenceScreen",
+    "title": "Backup/Restore",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "other",
+    "widget": "PreferenceScreen",
+    "title": "Other",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   }
+  ],
+  "pref_notification": [
+   {
+    "key": "sync_notifiable",
+    "widget": "CheckBoxPreference",
+    "title": "Notification",
+    "summary": "Show notification when finished synchronizing",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "sync_notify_sound",
+    "widget": "CheckBoxPreference",
+    "title": "Sound",
+    "summary": "Play sound on new articles",
+    "default": null,
+    "dependency": "sync_notifiable"
+   },
+   {
+    "key": "sync_notify_sound_ringtone",
+    "widget": "RingtonePreference",
+    "title": "Notification sound",
+    "summary": "Select notification sound",
+    "default": "content://settings/system/notification_sound",
+    "dependency": "sync_notifiable",
+    "ringtoneType": "0x00000002"
+   },
+   {
+    "key": "sync_notify_vibrate",
+    "widget": "CheckBoxPreference",
+    "title": "Vibration",
+    "summary": "Vibrate phone on new articles",
+    "default": null,
+    "dependency": "sync_notifiable"
+   },
+   {
+    "key": "sync_notify_led",
+    "widget": "CheckBoxPreference",
+    "title": "LED",
+    "summary": "Flash lights on new articles",
+    "default": null,
+    "dependency": "sync_notifiable"
+   },
+   {
+    "key": "sync_notifiable_custom",
+    "widget": "CheckBoxPreference",
+    "title": "Custom notification (PREMIUM)",
+    "summary": "Show notification for individual feeds",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "sync_notify_custom_sound",
+    "widget": "CheckBoxPreference",
+    "title": "Sound",
+    "summary": "Play sound on new articles",
+    "default": null,
+    "dependency": "sync_notifiable_custom"
+   },
+   {
+    "key": "sync_notify_custom_sound_ringtone",
+    "widget": "RingtonePreference",
+    "title": "Notification sound",
+    "summary": "Select notification sound",
+    "default": "content://settings/system/notification_sound",
+    "dependency": "sync_notifiable_custom",
+    "ringtoneType": "0x00000002"
+   },
+   {
+    "key": "sync_notify_custom_vibrate",
+    "widget": "CheckBoxPreference",
+    "title": "Vibration",
+    "summary": "Vibrate phone on new articles",
+    "default": null,
+    "dependency": "sync_notifiable_custom"
+   },
+   {
+    "key": "sync_notify_custom_led",
+    "widget": "CheckBoxPreference",
+    "title": "LED",
+    "summary": "Flash lights on new articles",
+    "default": null,
+    "dependency": "sync_notifiable_custom"
+   }
+  ],
+  "pref_other": [
+   {
+    "key": "preference_feedback",
+    "widget": "PreferenceScreen",
+    "title": "Feedback",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "preference_privacy_policy",
+    "widget": "PreferenceScreen",
+    "title": "Privacy Policy",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "preference_privacy_settings",
+    "widget": "PreferenceScreen",
+    "title": "Privacy Settings",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   }
+  ],
+  "pref_quick_actions": [
+   {
+    "key": "item_list_left_action",
+    "widget": "ListPreference",
+    "title": "Left action",
+    "summary": "Define the left action",
+    "default": "3",
+    "dependency": null,
+    "entries": [
+     "None",
+     "Read/Unread",
+     "Toggle Keep unread",
+     "Star/Unstar",
+     "Save/Unsave",
+     "Open in browser",
+     "Share",
+     "Facebook",
+     "Twitter",
+     "Pocket",
+     "Instapaper",
+     "Read aloud"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "14",
+     "6",
+     "7",
+     "10",
+     "11",
+     "12"
+    ]
+   },
+   {
+    "key": "item_list_right_action",
+    "widget": "ListPreference",
+    "title": "Right action",
+    "summary": "Define the right action",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "None",
+     "Read/Unread",
+     "Toggle Keep unread",
+     "Star/Unstar",
+     "Save/Unsave",
+     "Open in browser",
+     "Share",
+     "Facebook",
+     "Twitter",
+     "Pocket",
+     "Instapaper",
+     "Read aloud"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4",
+     "5",
+     "14",
+     "6",
+     "7",
+     "10",
+     "11",
+     "12"
+    ]
+   },
+   {
+    "key": "item_list_swipe_action_ltr",
+    "widget": "ListPreference",
+    "title": "Swipe Left to Right",
+    "summary": "Define the action for left to right swiping",
+    "default": "0",
+    "dependency": null,
+    "entries": [
+     "Disable",
+     "Read/Unread",
+     "Toggle Keep unread",
+     "Star/Unstar",
+     "Save/Unsave"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4"
+    ]
+   },
+   {
+    "key": "item_list_swipe_action_rtl",
+    "widget": "ListPreference",
+    "title": "Swipe Right to Left",
+    "summary": "Define the action for right to left swiping",
+    "default": "0",
+    "dependency": null,
+    "entries": [
+     "Disable",
+     "Read/Unread",
+     "Toggle Keep unread",
+     "Star/Unstar",
+     "Save/Unsave"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "3",
+     "4"
+    ]
+   }
+  ],
+  "pref_reading": [
+   {
+    "key": "preference_mark_read",
+    "widget": "PreferenceScreen",
+    "title": "Mark all as read",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "preference_article_controls",
+    "widget": "PreferenceScreen",
+    "title": "Article Controls",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "item_images_loading",
+    "widget": "ListPreference",
+    "title": "Load images",
+    "summary": "Download and show images",
+    "default": "1",
+    "dependency": null,
+    "entries": [
+     "Disable",
+     "Enable",
+     "WiFi-Only"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ]
+   },
+   {
+    "key": "item_load_link",
+    "widget": "ListPreference",
+    "title": "Load article link",
+    "summary": "Define how to load article link",
+    "default": "0",
+    "dependency": null,
+    "entries": [
+     "Original Link",
+     "Google Mobilizer"
+    ],
+    "entryValues": [
+     "0",
+     "1"
+    ]
+   },
+   {
+    "key": "item_autoload_link",
+    "widget": "CheckBoxPreference",
+    "title": "Autoload article link",
+    "summary": "Load article link immediately after entering an article",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "item_autoload_reading_mode",
+    "widget": "CheckBoxPreference",
+    "title": "Autoload reading mode",
+    "summary": "Automatically load article in reading mode for better reading",
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "item_user_agent",
+    "widget": "ListPreference",
+    "title": "User Agent",
+    "summary": "Request the mobile or desktop version of a website",
+    "default": "0",
+    "dependency": null,
+    "entries": [
+     "Android",
+     "Desktop",
+     "iPhone",
+     "iPad"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "3"
+    ]
+   }
+  ],
+  "pref_rich_list": [
+   {
+    "key": "rich_article_list",
+    "widget": "CheckBoxPreference",
+    "title": "Enable Rich Article List",
+    "summary": "Show articles with snippet and preview thumbnail",
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "rich_show_snippet",
+    "widget": "CheckBoxPreference",
+    "title": "Show Snippet",
+    "summary": "Show article snippet",
+    "default": "true",
+    "dependency": "rich_article_list"
+   },
+   {
+    "key": "rich_show_thumb",
+    "widget": "ListPreference",
+    "title": "Show Preview Thumbnail",
+    "summary": "Show article preview thumbnail",
+    "default": "2",
+    "dependency": "rich_article_list",
+    "entries": [
+     "Disable",
+     "Enable",
+     "WiFi-Only"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ]
+   }
+  ],
+  "pref_text_to_speech": [
+   {
+    "key": "preference_tts_voices",
+    "widget": "PreferenceCategory",
+    "title": "Text to Speech",
+    "summary": null,
+    "default": null,
+    "dependency": null
+   },
+   {
+    "key": "service_tts_auto_detect_language",
+    "widget": "CheckBoxPreference",
+    "title": "Auto detect language",
+    "summary": null,
+    "default": "true",
+    "dependency": null
+   },
+   {
+    "key": "service_tts_read_title",
+    "widget": "CheckBoxPreference",
+    "title": "Read title",
+    "summary": null,
+    "default": "false",
+    "dependency": null
+   },
+   {
+    "key": "service_tts_mark_read",
+    "widget": "CheckBoxPreference",
+    "title": "Mark read",
+    "summary": null,
+    "default": "false",
+    "dependency": null
+   }
+  ]
+ },
+ "code_screens": {
+  "sync": [
+   {
+    "widget": "PreferenceCategory",
+    "title": "Synchronization"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "sync_auto_update",
+    "default": "1",
+    "entries": [
+     "Disable",
+     "Enable",
+     "WiFi-Only"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ],
+    "title": "Auto update",
+    "summary": "Automatically update feeds"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "sync_interval_hours",
+    "default": "1",
+    "entries": [
+     "Custom",
+     "Every 1 hour",
+     "Every 2 hours",
+     "Every 4 hours",
+     "Every 6 hours",
+     "Every 12 hours",
+     "Once a day"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2",
+     "4",
+     "6",
+     "12",
+     "24"
+    ],
+    "title": "Interval",
+    "summary": "How often should synchronization occur?"
+   },
+   {
+    "widget": "SeekBarPreference",
+    "key": "sync_custom_interval",
+    "title": "Custom Interval",
+    "summary": "Between 0 and 60 minutes"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "sync_item_limit",
+    "default": "1000",
+    "entries": [
+     "100",
+     "200",
+     "500",
+     "1000",
+     "2000",
+     "5000",
+     "10000"
+    ],
+    "entryValues": [
+     "100",
+     "200",
+     "500",
+     "1000",
+     "2000",
+     "5000",
+     "10000"
+    ],
+    "title": "Item limit",
+    "summary": "Number of items to be synced."
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "sync_include_starred",
+    "default": "false",
+    "title": "Include starred items",
+    "summary": "Sync starred items while synchronizing"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "sync_on_start",
+    "default": "0",
+    "entries": [
+     "Disable",
+     "Enable",
+     "WiFi-Only"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ],
+    "title": "Sync on startup",
+    "summary": "Start syncing after opening app"
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "2-Way Sync"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "sync_server_reads",
+    "default": "true",
+    "title": "Server reads",
+    "summary": "Sync read articles from server to app"
+   }
+  ],
+  "offline": [
+   {
+    "widget": "PreferenceCategory",
+    "title": "Offline Reading"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "offline_usage",
+    "default": "0",
+    "entries": [
+     "Disable",
+     "Enable",
+     "WiFi-Only"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ],
+    "title": "Offline usage",
+    "summary": "Download article contents after synchronization"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "offline_feed_items_limit",
+    "default": "50",
+    "entries": [
+     "10 per feed",
+     "20 per feed",
+     "50 per feed",
+     "100 per feed",
+     "200 per feed",
+     "All synchronized",
+     "All unread items"
+    ],
+    "entryValues": [
+     "10",
+     "20",
+     "50",
+     "100",
+     "200",
+     "0",
+     "-1"
+    ],
+    "title": "Item limit",
+    "summary": "Number of items to be downloaded"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_autoload_cache",
+    "default": "true",
+    "title": "Autoload cache",
+    "summary": "Load from cache if it is available"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "offline_autoload_reading_mode",
+    "default": "0",
+    "entries": [
+     "Disable",
+     "Enable",
+     "Normal format only"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ],
+    "title": "Autoload reading mode",
+    "summary": "Automatically load cached articles in reading mode"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_save_page_on_star",
+    "default": "false",
+    "title": "Save page on star",
+    "summary": "Download offline content on starring item"
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "Offline content"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_load_full_content",
+    "default": "true",
+    "title": "Load full content",
+    "summary": "Download full content for viewing offline while synchronizing"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "offline_full_content_format",
+    "default": "3",
+    "entries": [
+     "Normal page",
+     "Normal page without images",
+     "Simplified",
+     "Simplified without images"
+    ],
+    "entryValues": [
+     "1",
+     "2",
+     "3",
+     "4"
+    ],
+    "title": "Full content format",
+    "summary": "Specify the full content format"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_load_images",
+    "default": "false",
+    "title": "Cache feed images",
+    "summary": "Download feed images for viewing offline while synchronizing"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_save_data_traffic",
+    "default": "true",
+    "title": "Save data traffic",
+    "summary": "Save data traffic by downloading only images with ext. jpg, png or gif"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_load_audio",
+    "default": "false",
+    "title": "Load audio (PREMIUM)",
+    "summary": "Download audio podcasts while synchronizing"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "offline_load_video",
+    "default": "false",
+    "title": "Load video (PREMIUM)",
+    "summary": "Download video podcasts while synchronizing"
+   }
+  ],
+  "notification": [],
+  "cache": [],
+  "reading": [],
+  "look_feel": [],
+  "rich_list": [],
+  "quick_actions": [],
+  "backup": [],
+  "other": [],
+  "services": [
+   {
+    "widget": "PreferenceCategory",
+    "title": "Services"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "service_tts",
+    "default": "2",
+    "entries": [
+     "Disable",
+     "Current page",
+     "Full content (PREMIUM)"
+    ],
+    "entryValues": [
+     "0",
+     "1",
+     "2"
+    ],
+    "title": "Voice-Reading",
+    "summary": "Read articles aloud"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_translate",
+    "default": "true",
+    "title": "Translate",
+    "summary": "Translate the current page with Google Translate"
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "Share"
+   },
+   {
+    "widget": "ListPreference",
+    "key": "item_send_to",
+    "default": "1",
+    "entries": [
+     "{link}",
+     "{title} + {link}",
+     "{link} + {summary}",
+     "{title} + {link} + {summary}",
+     "{title} + {summary} + {link}"
+    ],
+    "entryValues": [
+     "1",
+     "2",
+     "3",
+     "4",
+     "5"
+    ],
+    "title": "Customize share content",
+    "summary": "Define the format for shared content"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "item_internal_share",
+    "default": "false",
+    "title": "Internal share dialog",
+    "summary": "Use internal share feature otherwise system share"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_everclip",
+    "default": "true",
+    "title": "EverClip",
+    "summary": "Use EverClip to clip web content to Evernote. EverClip must be installed."
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "Social Network"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_facebook",
+    "default": "true",
+    "title": "Facebook",
+    "summary": "Enable Facebook in navigation bar. Official Facebook app is needed."
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_twitter",
+    "default": "true",
+    "title": "Twitter",
+    "summary": "Enable Twitter in navigation bar. A Twitter app is needed."
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "Bookmarking"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_ril",
+    "default": "true",
+    "title": "Pocket"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_instapaper",
+    "default": "true",
+    "title": "Instapaper"
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "Mobilizer"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_google_mobilizer",
+    "default": "true",
+    "title": "Google Mobilizer"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_readability_mobilizer",
+    "default": "true",
+    "title": "Readability Mobilizer"
+   },
+   {
+    "widget": "PreferenceCategory",
+    "title": "3rd-Party Apps"
+   },
+   {
+    "widget": "CheckBoxPreference",
+    "key": "service_tesla_unread",
+    "default": "false",
+    "title": "Tesla Unread"
+   }
+  ]
+ }
+}

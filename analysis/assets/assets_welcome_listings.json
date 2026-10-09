@@ -1,0 +1,52 @@
+{
+  "website": "https://noinnion.com/greader",
+  "faq": "https://noinnion.com/greader/faq",
+  "changelog": "https://noinnion.com/greader/updates",
+  "listings": [
+    {
+      "title": "Getting Started",
+      "url": "https://noinnion.com/greader/guide/",
+      "description": "Learn more about how to use the app."
+    },
+    {
+      "title": "What is RSS",
+      "url": "https://noinnion.com/greader/guide/what-is-rss",
+      "description": "You don't know what RSS is about and why you should use gReader? Read this."
+    },
+    {
+      "title": "Themes",
+      "url": "https://noinnion.com/greader/guide/themes",
+      "description": "Blue, Green, Sepia, Dark or Black theme. What do you prefer?"
+    },
+    {
+      "title": "Offline Reading",
+      "url": "https://noinnion.com/greader/guide/offline-reading",
+      "description": "With gReader you can have all the latest news along the way without an internet connection. The gReader app downloads for you all the news on to your android phone."
+    },
+    {
+      "title": "Search Filters",
+      "url": "https://noinnion.com/greader/guide/search-filters",
+      "description": "Easily search for articles and save them for later access."
+    },
+    {
+      "title": "Podcast",
+      "url": "https://noinnion.com/greader/guide/podcasts",
+      "description": "Discover and listen to you favorite podcasts within the app."
+    },
+    {
+      "title": "Voice Reading",
+      "url": "https://noinnion.com/greader/guide/voice-reading",
+      "description": "Voice Reading gives you the freedom to listen to selected news of your choice"
+    },
+    {
+      "title": "Widgets",
+      "url": "https://noinnion.com/greader/guide/widgets",
+      "description": "Put widgets on your home screen to get quicker access. gReader offers different kind of widgets."
+    },
+    {
+      "title": "Hidden Features",
+      "url": "https://noinnion.com/greader/guide/hidden-features",
+      "description": "There are some features that are not obviously to the users. Find out how they can help you to read your news more comfortable."
+    }
+  ]
+}

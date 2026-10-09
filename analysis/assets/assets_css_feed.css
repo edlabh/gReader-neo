@@ -1,0 +1,32 @@
+a[href*="feedsportal.com/r"] {display: none;}
+body {margin:0;padding:0;line-height:1.6em;color:#333;background:#f9f9f9;}
+body.ft0 {font-family: Arial, Helvetica, sans-serif;}body.ft1 {font-family:Courier, monospace}body.ft2 {font-family:Times, serif}
+body.ta1 {text-align:left}body.ta2 {text-align:right}body.ta3 #item_content {text-align:justify}
+body.if img {max-width:100%;height:auto}
+h1 {display:block;width:100%;margin:0;padding: 0 0 5px 0;font-size:1.3em;}br {clear:both}blockquote {margin:0px;padding:10px;border-width:1px;border-color:#d4e4e4;}ul {list-style-position:inside;}table {max-width:88%;}video {max-width:100%}embed {max-width:100%;background:#e4e4e4;}figure {margin:0 !important;}
+code {white-space:pre-wrap;word-wrap:break-word;}.wrap {overflow-wrap: break-word;word-wrap: break-word; /* This is the dangerous one in WebKit, as it breaks things wherever */ word-break: break-all; /* Instead use this non-standard one: */ word-break: break-word; /* Adds a hyphen where the word breaks, if supported (No Blink) */ -webkit-hyphens: auto; hyphens: auto;}
+a {color:#1e83cb;text-decoration:none; }a img{border:0}body h1 > a.title {color:#333 !important;}
+body.phone iframe{width:100% !important}
+#teaser {width:100%;height:200px;border-bottom:1px solid #9e9e9e;position:relative;}body.tablet7 #teaser {height:300px;}body.tablet10 #teaser {height:400px;}#teaser img.main {width:100%;height:100%;object-fit:cover;object-position:center;position: absolute;}#teaser .overlay {width:64px;height:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+#content {margin:50px 15px}body.tablet10 #content {margin:70px 40px}body.tablet7 #content {margin:50px 25px}#teaser ~ #content {margin-top:20px !important}
+#item-head {color:#7B8285;margin-bottom:0px;}#item-head .author-time {font-size:.8em;color:#7b8285;}#item-head .favicon {padding-left:20px;background-position:0 center;background-repeat:no-repeat;background-size: 14px 14px;}#item-head .subscription {color:#1e83cb;font-size:.8em;padding-top:4px;overflow:hidden;white-space:nowrap;}
+#item-content {padding-top:0px; display:block;clear:both;word-wrap:break-word;}#item-content .gif-container {width:100%;height:200px;border:1px solid #9e9e9e}#item-content .gif {width:100%;height:200px;background:url('file:///android_asset/images/gif.png') no-repeat center center;}
+#nav-bar {margin: 30px 0;text-align:center;clear:both;display:inline-table;width:100%}#nav-bar > .item {padding:10px;margin:0 5px;background:#eee;}#nav-bar > .item:active {-webkit-tap-highlight-color:rgba(0, 0, 0, 0);color:white;background:#1e83cb;}
+.alternative, .more, .alternative-short a {padding:5px;margin:5px 0;background:#eee;display:inline-block;clear:both;line-height:1.1em;color:#999}.alternative a {margin-right:5px;}
+
+body.green #nav-bar > .item:active {color:white;background:#0d9d57;}
+
+body.sepia {color:#444;background:#d4cfca;}
+body.sepia #nav-bar > .item {background:#c4bfbb}body.sepia #nav-bar > .item:active {color:white;background:#a39f9b;}
+body.sepia .alternative, body.sepia .more, body.sepia .alternative-short a {background:#c4bfbb;}
+
+body.dark {color:#eee;background:#1f1f1f;}body.dark a {color:#58b0ff !important;}body.dark h1 > a.title {color:#f9f9f9 !important;}body.dark #item-head .subscription {color:#58b0ff !important;}body.dark #item-head .subscription {color:#58b0ff !important;}
+body.dark #nav-bar > .item {background:#333}body.dark #nav-bar > .item:active {color:white !important;background:#1e83cb;}
+body.dark .alternative, body.dark .more, body.dark .alternative-short a {background:#333;}
+body.dark #teaser {border-bottom:1px solid #333333 !important;}
+
+body.black {color:#f9f9f9;background:#000;}body.black a {color:#58b0ff !important;}body.black h1 > a.title {color:#f9f9f9 !important;}body.black #item-head .subscription {color:#58b0ff !important;}body.black #item-head .subscription {color:#58b0ff !important;}
+body.black #nav-bar > .item {background:#1f1f1f}body.black #nav-bar > .item:active {color:white;background:#3d72a4;}
+body.black .alternative, body.black .more, body.black .alternative-short a {background:#222;}
+body.black #teaser {border-bottom:1px solid #222222 !important;}
+

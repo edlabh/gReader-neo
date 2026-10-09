@@ -1,0 +1,34 @@
+    static {
+        UriMatcher uriMatcher = new UriMatcher(-1);
+        u = uriMatcher;
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "reconnect_db", 4);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "raw_query", 5);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "begin_txn", 1);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "success_txn", 2);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "end_txn", 3);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "subscription/#", 10);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "subscription", 11);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tag/#", 20);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tag", 21);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tag2sub/#", 30);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tag2sub", 31);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tags_subs", 32);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "item/#", 40);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", NSRSS20.ITEM, 41);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "item/#", 40);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "items_subs", 42);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "items_insert", 44);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "item_sync", 45);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "items_sync_insert", 46);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tag2item/#", 50);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "tag2item", 51);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "history/#", 60);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "history", 61);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_mark_read", 75);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_mark_tag", 73);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_newest_time", 70);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_unreads", 71);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_reads", 72);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_starred", 74);
+        uriMatcher.addURI("com.noinnion.android.greader.reader.provider", "update_tag2item", 76);
+    }

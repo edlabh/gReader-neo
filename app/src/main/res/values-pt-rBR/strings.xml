@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">gReader Neo</string>
+
+    <!-- Navegação -->
+    <string name="settings">Configurações</string>
+    <string name="back">Voltar</string>
+    <string name="sync_now">Sincronizar</string>
+    <string name="home_title">Meus feeds</string>
+
+    <!-- Estados -->
+    <string name="empty_feeds_title">Nenhum feed ainda</string>
+    <string name="empty_feeds_message">Conecte sua conta Feedly para sincronizar seus feeds.</string>
+    <string name="empty_feeds_connected_message">Sincronize para baixar seus feeds do Feedly.</string>
+    <string name="connect_feedly">Conectar com Feedly</string>
+    <string name="unread_count">%1$d não lidos</string>
+    <string name="connect_banner">Conecte sua conta Feedly para sincronizar</string>
+    <string name="sync_success">%1$d novos artigos</string>
+    <string name="sync_retry">Tentar novamente</string>
+    <string name="account_disconnected">Nenhuma conta conectada</string>
+    <string name="drawer_folders">Pastas</string>
+    <string name="drawer_feeds">Feeds</string>
+    <string name="drawer_menu">Abrir painel de feeds</string>
+    <string name="theme_dynamic">Cores do sistema (Material You)</string>
+    <string name="list_section">Lista de artigos</string>
+    <string name="list_density">Densidade</string>
+    <string name="density_compact">Compacta</string>
+    <string name="density_comfortable">Confortável</string>
+    <string name="density_spacious">Espaçosa</string>
+    <string name="list_font_size">Tamanho da fonte</string>
+    <string name="list_divider">Linha entre artigos</string>
+    <string name="font_small">Pequena</string>
+    <string name="font_medium">Média</string>
+    <string name="font_large">Grande</string>
+    <string name="empty_articles_message">Sincronize para baixar novos artigos do Feedly.</string>
+
+    <!-- Acessibilidade (descrições de ícones) -->
+    <string name="cd_menu">Abrir painel de feeds</string>
+    <string name="cd_settings">Configurações</string>
+    <string name="cd_sync">Sincronizar</string>
+    <string name="cd_back">Voltar</string>
+    <string name="cd_star">Alternar estrela</string>
+    <string name="cd_share">Compartilhar</string>
+    <string name="cd_browser">Abrir no navegador</string>
+    <string name="cd_clear_selection">Limpar seleção</string>
+    <string name="cd_mark_read">Marcar como lido</string>
+    <string name="cd_mark_unread">Marcar como não lido</string>
+    <string name="cd_expand_folder">Expandir pasta</string>
+    <string name="cd_collapse_folder">Recolher pasta</string>
+    <string name="cd_search">Buscar</string>
+    <string name="cd_clear_search">Limpar busca</string>
+    <string name="cd_close_search">Fechar busca</string>
+    <string name="cd_edit">Editar</string>
+    <string name="cd_delete">Remover</string>
+    <string name="cd_topic_selector">Tópico atual e preferências de exibição</string>
+    <string name="cd_show_all">Mostrar todos os artigos</string>
+    <string name="cd_unread_only">Mostrar apenas não lidos</string>
+
+    <!-- Seletor de tópico (modo e ordenação) -->
+    <string name="view_list">Lista</string>
+    <string name="view_grid">Grade</string>
+    <string name="cd_view_list">Exibir como lista (só títulos)</string>
+    <string name="cd_view_grid">Exibir como grade (com imagens)</string>
+    <string name="sort_recent">Mais recentes</string>
+    <string name="sort_oldest">Mais antigos</string>
+
+    <!-- Armazenamento / retenção -->
+    <string name="retention_section">Armazenamento</string>
+    <string name="retention_title">Manter artigos por</string>
+    <string name="retention_1d">1 dia</string>
+    <string name="retention_3d">3 dias</string>
+    <string name="retention_7d">7 dias</string>
+    <string name="retention_14d">14 dias</string>
+    <string name="retention_30d">30 dias</string>
+    <string name="retention_never">Nunca</string>
+
+    <!-- Leitura -->
+    <string name="reader_section">Leitura</string>
+    <string name="webview_embedded">Abrir artigos no navegador embutido</string>
+    <string name="webview_embedded_summary">Desligado, os links abrem no navegador externo</string>
+
+    <!-- Assinaturas (gerenciar) -->
+    <string name="manage_subscriptions">Gerenciar assinaturas</string>
+    <string name="edit_subscription">Editar assinatura</string>
+    <string name="subscription_title_label">Título</string>
+    <string name="subscription_folder_label">Pasta</string>
+    <string name="folder_none">Sem pasta</string>
+    <string name="save">Salvar</string>
+    <string name="subscription_updated">Assinatura atualizada</string>
+    <string name="subscription_deleted">Assinatura removida</string>
+    <string name="delete_subscription_title">Remover assinatura?</string>
+    <string name="delete_subscription_message">O feed “%1$s” será removido da sua conta Feedly e do app.</string>
+    <string name="subscriptions_requires_login">Entre com o Feedly para gerenciar assinaturas.</string>
+    <string name="account_title">Conta</string>
+
+    <!-- Lista de artigos -->
+    <string name="all_articles">Todos os artigos</string>
+    <string name="cancel">Cancelar</string>
+    <string name="selected_count">%1$d selecionados</string>
+    <string name="mark_read">Marcar lido</string>
+    <string name="mark_unread">Marcar não lido</string>
+    <string name="mark_all_read">Marcar tudo lido</string>
+    <string name="search_hint">Buscar artigos…</string>
+    <string name="empty_articles">Nenhum artigo</string>
+
+    <!-- Leitor -->
+    <string name="reader_mode_feed">Feed</string>
+    <string name="reader_mode_reading">Leitura</string>
+    <string name="reader_mode_web">Web</string>
+    <string name="reader_extract_failed">Não foi possível extrair o conteúdo desta página.</string>
+    <string name="reader_no_link">Este artigo não tem link para este modo.</string>
+
+    <!-- Login / conta -->
+    <string name="login_description">Entre com sua conta Feedly para sincronizar seus feeds entre dispositivos.</string>
+    <string name="login_connecting">Conectando…</string>
+    <string name="login_connected_as">Conectado como %1$s</string>
+    <string name="login_not_configured">O app OAuth do Feedly ainda não foi configurado.</string>
+    <string name="logout">Sair da conta</string>
+    <string name="account_section">Conta</string>
+    <string name="login_advanced">Usar credenciais próprias (avançado)</string>
+    <string name="login_client_id">Client ID</string>
+    <string name="login_client_secret">Client Secret</string>
+    <string name="login_save_credentials">Salvar credenciais</string>
+    <string name="login_reset_credentials">Restaurar padrão</string>
+    <string name="login_credentials_saved">Credenciais salvas — faça login novamente</string>
+    <string name="login_credentials_reset">Credenciais padrão restauradas</string>
+    <string name="login_using_default">Credenciais: padrão embutido (greader)</string>
+    <string name="login_using_custom">Credenciais: personalizadas (configuradas por você)</string>
+    <string name="login_browser_unavailable">Não foi possível abrir o navegador para o login.</string>
+
+    <!-- Configurações -->
+    <string name="sync_section">Sincronização</string>
+    <string name="sync_on_start">Sincronizar ao abrir</string>
+    <string name="sync_server_reads">Usar estado de leitura do servidor</string>
+    <string name="sync_interval">Intervalo de sincronização</string>
+    <string name="sync_interval_manual">Manual</string>
+    <string name="sync_interval_manual_summary">Somente quando você puxar ou tocar em sincronizar</string>
+    <string name="sync_custom_interval_label">Personalizado (min)</string>
+    <string name="sync_more_intervals">Mais frequências</string>
+    <string name="sync_frequency">Frequência</string>
+    <string name="sync_update_manual">Atualização Manual</string>
+    <string name="sync_custom_active">Personalizado: %1$d min</string>
+    <string name="apply">Aplicar</string>
+    <string name="appearance_section">Aparência</string>
+    <string name="theme_amoled">Fundo preto (AMOLED)</string>
+    <string name="hours_short">h</string>
+    <string name="settings_subscribe">Assinar feed</string>
+    <string name="about_section">Sobre</string>
+    <string name="version_format">gReader Neo %1$s</string>
+
+    <!-- Assinaturas -->
+    <string name="subscribe_title">Assinar feed</string>
+    <string name="subscribe_search_hint">Buscar feeds (nome ou URL)…</string>
+    <string name="subscribe_search">Buscar</string>
+    <string name="subscribe_add">Assinar</string>
+    <string name="subscribe_import">Importar OPML</string>
+    <string name="subscribe_export">Exportar OPML</string>
+    <string name="subscribe_added">Feed adicionado — sincronize para atualizar</string>
+    <string name="subscribe_none">Nenhum resultado</string>
+    <string name="subscribe_preview_latest">Últimos artigos</string>
+    <string name="subscribe_preview_unavailable">Não foi possível carregar a prévia deste feed.</string>
+    <string name="subscribe_preview_empty">Nenhum artigo recente encontrado.</string>
+    <string name="subscribe_subscribers">%1$s assinantes</string>
+    <string name="subscribe_folder_dialog_title">Assinar em qual pasta?</string>
+    <string name="subscribe_folder_dialog_message">“%1$s” será adicionado sem pasta por padrão.</string>
+    <string name="login_required">Entre com o Feedly primeiro</string>
+
+    <!-- Notificações -->
+    <string name="notification_channel_new_articles">Novos artigos</string>
+    <string name="notification_new_articles_title">%1$d novos artigos</string>
+    <string name="notification_new_articles_text">Toque para abrir o gReader Neo</string>
+
+    <!-- Widgets -->
+    <string name="widget_unread_count_name">Não lidos</string>
+    <string name="widget_unread_count_description">Mostra o número de artigos não lidos</string>
+
+    <!-- Mensagens de runtime (sync, login) -->
+    <string name="sync_step_outbox">envio de alterações</string>
+    <string name="sync_step_feeds">assinaturas</string>
+    <string name="sync_step_articles">artigos</string>
+    <string name="sync_step_reads">estado de leitura</string>
+    <string name="sync_step_counters">contadores</string>
+    <string name="sync_step_cleanup">limpeza</string>
+    <string name="sync_failed_at">Falha em %1$s — %2$s</string>
+    <string name="sync_session_expired">Sessão expirada — entre novamente</string>
+    <string name="login_error_denied">Autorização negada: %1$s</string>
+    <string name="login_error_state">Estado OAuth inválido — tente novamente</string>
+    <string name="login_error_generic">Falha no login</string>
+    <string name="subscribe_failed">Falha ao assinar</string>
+    <string name="opml_imported">Importados %1$d de %2$d feeds</string>
+    <string name="opml_exported">Exportados %1$d feeds</string>
+    <string name="subscription_update_failed">Falha ao atualizar assinatura</string>
+    <string name="subscription_delete_failed">Falha ao remover assinatura</string>
+
+    <!-- Avaliação: estados, confirmações, a11y -->
+    <string name="empty_search_title">Nada encontrado</string>
+    <string name="empty_search_message">Tente outro termo de busca.</string>
+    <string name="empty_unread_title">Tudo lido!</string>
+    <string name="empty_unread_message">Você não tem artigos não lidos.</string>
+    <string name="mark_all_read_confirm_title">Marcar tudo como lido?</string>
+    <string name="mark_all_read_confirm_message">Todos os artigos de todas as fontes serão marcados como lidos.</string>
+    <string name="action_remove_feed">Remover feed</string>
+    <string name="action_select_article">Selecionar artigo</string>
+    <string name="subscribe_idle_hint">Busque feeds por nome ou URL para começar.</string>
+</resources>

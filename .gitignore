@@ -1,0 +1,32 @@
+# Android / Gradle
+.gradle/
+build/
+*/build/
+local.properties
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Binários grandes de análise (não versionar)
+*.apk
+*.apk:Zone.Identifier
+tools/jadx-headless-mcp-*.jar
+analysis/dex/
+analysis/prefs/resources.txt
+analysis/prefs/xmltree/
+analysis/sync/*.json
+analysis/sync/**/*.json
+analysis/ui/*.json
+
+# Sistema
+.DS_Store
+
+# Python (scripts de análise)
+__pycache__/
+*.pyc

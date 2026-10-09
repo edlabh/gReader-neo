@@ -1,0 +1,390 @@
+{
+ "sync": [
+  {
+   "widget": "PreferenceCategory",
+   "title": "Synchronization"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "sync_auto_update",
+   "default": "1",
+   "entries": [
+    "Disable",
+    "Enable",
+    "WiFi-Only"
+   ],
+   "entryValues": [
+    "0",
+    "1",
+    "2"
+   ],
+   "title": "Auto update",
+   "summary": "Automatically update feeds"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "sync_interval_hours",
+   "default": "1",
+   "entries": [
+    "Custom",
+    "Every 1 hour",
+    "Every 2 hours",
+    "Every 4 hours",
+    "Every 6 hours",
+    "Every 12 hours",
+    "Once a day"
+   ],
+   "entryValues": [
+    "0",
+    "1",
+    "2",
+    "4",
+    "6",
+    "12",
+    "24"
+   ],
+   "title": "Interval",
+   "summary": "How often should synchronization occur?"
+  },
+  {
+   "widget": "SeekBarPreference",
+   "key": "sync_custom_interval",
+   "title": "Custom Interval",
+   "summary": "Between 0 and 60 minutes"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "sync_item_limit",
+   "default": "1000",
+   "entries": [
+    "100",
+    "200",
+    "500",
+    "1000",
+    "2000",
+    "5000",
+    "10000"
+   ],
+   "entryValues": [
+    "100",
+    "200",
+    "500",
+    "1000",
+    "2000",
+    "5000",
+    "10000"
+   ],
+   "title": "Item limit",
+   "summary": "Number of items to be synced."
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "sync_include_starred",
+   "default": "false",
+   "title": "Include starred items",
+   "summary": "Sync starred items while synchronizing"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "sync_on_start",
+   "default": "0",
+   "entries": [
+    "Disable",
+    "Enable",
+    "WiFi-Only"
+   ],
+   "entryValues": [
+    "0",
+    "1",
+    "2"
+   ],
+   "title": "Sync on startup",
+   "summary": "Start syncing after opening app"
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "2-Way Sync"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "sync_server_reads",
+   "default": "true",
+   "title": "Server reads",
+   "summary": "Sync read articles from server to app"
+  }
+ ],
+ "offline": [
+  {
+   "widget": "PreferenceCategory",
+   "title": "Offline Reading"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "offline_usage",
+   "default": "0",
+   "entries": [
+    "Disable",
+    "Enable",
+    "WiFi-Only"
+   ],
+   "entryValues": [
+    "0",
+    "1",
+    "2"
+   ],
+   "title": "Offline usage",
+   "summary": "Download article contents after synchronization"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "offline_feed_items_limit",
+   "default": "50",
+   "entries": [
+    "10 per feed",
+    "20 per feed",
+    "50 per feed",
+    "100 per feed",
+    "200 per feed",
+    "All synchronized",
+    "All unread items"
+   ],
+   "entryValues": [
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "0",
+    "-1"
+   ],
+   "title": "Item limit",
+   "summary": "Number of items to be downloaded"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_autoload_cache",
+   "default": "true",
+   "title": "Autoload cache",
+   "summary": "Load from cache if it is available"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "offline_autoload_reading_mode",
+   "default": "0",
+   "entries": [
+    "Disable",
+    "Enable",
+    "Normal format only"
+   ],
+   "entryValues": [
+    "0",
+    "1",
+    "2"
+   ],
+   "title": "Autoload reading mode",
+   "summary": "Automatically load cached articles in reading mode"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_save_page_on_star",
+   "default": "false",
+   "title": "Save page on star",
+   "summary": "Download offline content on starring item"
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "Offline content"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_load_full_content",
+   "default": "true",
+   "title": "Load full content",
+   "summary": "Download full content for viewing offline while synchronizing"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "offline_full_content_format",
+   "default": "3",
+   "entries": [
+    "Normal page",
+    "Normal page without images",
+    "Simplified",
+    "Simplified without images"
+   ],
+   "entryValues": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "title": "Full content format",
+   "summary": "Specify the full content format"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_load_images",
+   "default": "false",
+   "title": "Cache feed images",
+   "summary": "Download feed images for viewing offline while synchronizing"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_save_data_traffic",
+   "default": "true",
+   "title": "Save data traffic",
+   "summary": "Save data traffic by downloading only images with ext. jpg, png or gif"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_load_audio",
+   "default": "false",
+   "title": "Load audio (PREMIUM)",
+   "summary": "Download audio podcasts while synchronizing"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "offline_load_video",
+   "default": "false",
+   "title": "Load video (PREMIUM)",
+   "summary": "Download video podcasts while synchronizing"
+  }
+ ],
+ "notification": [],
+ "cache": [],
+ "reading": [],
+ "look_feel": [],
+ "rich_list": [],
+ "quick_actions": [],
+ "backup": [],
+ "other": [],
+ "services": [
+  {
+   "widget": "PreferenceCategory",
+   "title": "Services"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "service_tts",
+   "default": "2",
+   "entries": [
+    "Disable",
+    "Current page",
+    "Full content (PREMIUM)"
+   ],
+   "entryValues": [
+    "0",
+    "1",
+    "2"
+   ],
+   "title": "Voice-Reading",
+   "summary": "Read articles aloud"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_translate",
+   "default": "true",
+   "title": "Translate",
+   "summary": "Translate the current page with Google Translate"
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "Share"
+  },
+  {
+   "widget": "ListPreference",
+   "key": "item_send_to",
+   "default": "1",
+   "entries": [
+    "{link}",
+    "{title} + {link}",
+    "{link} + {summary}",
+    "{title} + {link} + {summary}",
+    "{title} + {summary} + {link}"
+   ],
+   "entryValues": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "title": "Customize share content",
+   "summary": "Define the format for shared content"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "item_internal_share",
+   "default": "false",
+   "title": "Internal share dialog",
+   "summary": "Use internal share feature otherwise system share"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_everclip",
+   "default": "true",
+   "title": "EverClip",
+   "summary": "Use EverClip to clip web content to Evernote. EverClip must be installed."
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "Social Network"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_facebook",
+   "default": "true",
+   "title": "Facebook",
+   "summary": "Enable Facebook in navigation bar. Official Facebook app is needed."
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_twitter",
+   "default": "true",
+   "title": "Twitter",
+   "summary": "Enable Twitter in navigation bar. A Twitter app is needed."
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "Bookmarking"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_ril",
+   "default": "true",
+   "title": "Pocket"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_instapaper",
+   "default": "true",
+   "title": "Instapaper"
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "Mobilizer"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_google_mobilizer",
+   "default": "true",
+   "title": "Google Mobilizer"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_readability_mobilizer",
+   "default": "true",
+   "title": "Readability Mobilizer"
+  },
+  {
+   "widget": "PreferenceCategory",
+   "title": "3rd-Party Apps"
+  },
+  {
+   "widget": "CheckBoxPreference",
+   "key": "service_tesla_unread",
+   "default": "false",
+   "title": "Tesla Unread"
+  }
+ ]
+}

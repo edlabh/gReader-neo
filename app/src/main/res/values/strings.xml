@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">gReader Neo</string>
+
+    <!-- Navigation -->
+    <string name="settings">Settings</string>
+    <string name="back">Back</string>
+    <string name="sync_now">Sync</string>
+    <string name="home_title">My feeds</string>
+
+    <!-- States -->
+    <string name="empty_feeds_title">No feeds yet</string>
+    <string name="empty_feeds_message">Connect your Feedly account to sync your feeds.</string>
+    <string name="empty_feeds_connected_message">Sync to download your feeds from Feedly.</string>
+    <string name="connect_feedly">Connect to Feedly</string>
+    <string name="unread_count">%1$d unread</string>
+    <string name="connect_banner">Connect your Feedly account to sync</string>
+    <string name="sync_success">%1$d new articles</string>
+    <string name="sync_retry">Try again</string>
+    <string name="account_disconnected">No account connected</string>
+    <string name="drawer_folders">Folders</string>
+    <string name="drawer_feeds">Feeds</string>
+    <string name="drawer_menu">Open feeds panel</string>
+    <string name="theme_dynamic">System colors (Material You)</string>
+    <string name="list_section">Article list</string>
+    <string name="list_density">Density</string>
+    <string name="density_compact">Compact</string>
+    <string name="density_comfortable">Comfortable</string>
+    <string name="density_spacious">Spacious</string>
+    <string name="list_font_size">Font size</string>
+    <string name="list_divider">Line between articles</string>
+    <string name="font_small">Small</string>
+    <string name="font_medium">Medium</string>
+    <string name="font_large">Large</string>
+    <string name="empty_articles_message">Sync to download new articles from Feedly.</string>
+
+    <!-- Accessibility (icon descriptions) -->
+    <string name="cd_menu">Open feeds panel</string>
+    <string name="cd_settings">Settings</string>
+    <string name="cd_sync">Sync</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_star">Toggle star</string>
+    <string name="cd_share">Share</string>
+    <string name="cd_browser">Open in browser</string>
+    <string name="cd_clear_selection">Clear selection</string>
+    <string name="cd_mark_read">Mark as read</string>
+    <string name="cd_mark_unread">Mark as unread</string>
+    <string name="cd_expand_folder">Expand folder</string>
+    <string name="cd_collapse_folder">Collapse folder</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_clear_search">Clear search</string>
+    <string name="cd_close_search">Close search</string>
+    <string name="cd_edit">Edit</string>
+    <string name="cd_delete">Remove</string>
+    <string name="cd_topic_selector">Current topic and display preferences</string>
+    <string name="cd_show_all">Show all articles</string>
+    <string name="cd_unread_only">Show unread only</string>
+
+    <!-- Topic selector (view mode and sorting) -->
+    <string name="view_list">List</string>
+    <string name="view_grid">Grid</string>
+    <string name="cd_view_list">Display as list (titles only)</string>
+    <string name="cd_view_grid">Display as grid (with images)</string>
+    <string name="sort_recent">Most recent</string>
+    <string name="sort_oldest">Oldest first</string>
+
+    <!-- Storage / retention -->
+    <string name="retention_section">Storage</string>
+    <string name="retention_title">Keep articles for</string>
+    <string name="retention_1d">1 day</string>
+    <string name="retention_3d">3 days</string>
+    <string name="retention_7d">7 days</string>
+    <string name="retention_14d">14 days</string>
+    <string name="retention_30d">30 days</string>
+    <string name="retention_never">Never</string>
+
+    <!-- Reading -->
+    <string name="reader_section">Reading</string>
+    <string name="webview_embedded">Open articles in built-in browser</string>
+    <string name="webview_embedded_summary">When off, links open in the external browser</string>
+
+    <!-- Subscriptions (manage) -->
+    <string name="manage_subscriptions">Manage subscriptions</string>
+    <string name="edit_subscription">Edit subscription</string>
+    <string name="subscription_title_label">Title</string>
+    <string name="subscription_folder_label">Folder</string>
+    <string name="folder_none">No folder</string>
+    <string name="save">Save</string>
+    <string name="subscription_updated">Subscription updated</string>
+    <string name="subscription_deleted">Subscription removed</string>
+    <string name="delete_subscription_title">Remove subscription?</string>
+    <string name="delete_subscription_message">The feed “%1$s” will be removed from your Feedly account and the app.</string>
+    <string name="subscriptions_requires_login">Sign in to Feedly to manage subscriptions.</string>
+    <string name="account_title">Account</string>
+
+    <!-- Article list -->
+    <string name="all_articles">All articles</string>
+    <string name="cancel">Cancel</string>
+    <string name="selected_count">%1$d selected</string>
+    <string name="mark_read">Mark read</string>
+    <string name="mark_unread">Mark unread</string>
+    <string name="mark_all_read">Mark all read</string>
+    <string name="search_hint">Search articles…</string>
+    <string name="empty_articles">No articles</string>
+
+    <!-- Reader -->
+    <string name="reader_mode_feed">Feed</string>
+    <string name="reader_mode_reading">Reading</string>
+    <string name="reader_mode_web">Web</string>
+    <string name="reader_extract_failed">Couldn’t extract this page’s content.</string>
+    <string name="reader_no_link">This article has no link for this mode.</string>
+
+    <!-- Login / account -->
+    <string name="login_description">Sign in with your Feedly account to sync your feeds across devices.</string>
+    <string name="login_connecting">Connecting…</string>
+    <string name="login_connected_as">Signed in as %1$s</string>
+    <string name="login_not_configured">The Feedly OAuth app is not configured.</string>
+    <string name="logout">Sign out</string>
+    <string name="account_section">Account</string>
+    <string name="login_advanced">Use your own credentials (advanced)</string>
+    <string name="login_client_id">Client ID</string>
+    <string name="login_client_secret">Client Secret</string>
+    <string name="login_save_credentials">Save credentials</string>
+    <string name="login_reset_credentials">Restore default</string>
+    <string name="login_credentials_saved">Credentials saved — sign in again</string>
+    <string name="login_credentials_reset">Default credentials restored</string>
+    <string name="login_using_default">Credentials: built-in default (greader)</string>
+    <string name="login_using_custom">Credentials: custom (set by you)</string>
+    <string name="login_browser_unavailable">Couldn’t open the browser for sign-in.</string>
+
+    <!-- Settings -->
+    <string name="sync_section">Sync</string>
+    <string name="sync_on_start">Sync on app open</string>
+    <string name="sync_server_reads">Use read state from server</string>
+    <string name="sync_interval">Sync interval</string>
+    <string name="sync_interval_manual">Manual</string>
+    <string name="sync_interval_manual_summary">Only when you pull or tap sync</string>
+    <string name="sync_custom_interval_label">Custom (min)</string>
+    <string name="sync_more_intervals">More frequencies</string>
+    <string name="sync_frequency">Frequency</string>
+    <string name="sync_update_manual">Manual update</string>
+    <string name="sync_custom_active">Custom: %1$d min</string>
+    <string name="apply">Apply</string>
+    <string name="appearance_section">Appearance</string>
+    <string name="theme_amoled">Black background (AMOLED)</string>
+    <string name="hours_short">h</string>
+    <string name="settings_subscribe">Subscribe to feed</string>
+    <string name="about_section">About</string>
+    <string name="version_format">gReader Neo %1$s</string>
+
+    <!-- Subscribe -->
+    <string name="subscribe_title">Subscribe to feed</string>
+    <string name="subscribe_search_hint">Search feeds (name or URL)…</string>
+    <string name="subscribe_search">Search</string>
+    <string name="subscribe_add">Subscribe</string>
+    <string name="subscribe_import">Import OPML</string>
+    <string name="subscribe_export">Export OPML</string>
+    <string name="subscribe_added">Feed added — sync to update</string>
+    <string name="subscribe_none">No results</string>
+    <string name="subscribe_preview_latest">Latest articles</string>
+    <string name="subscribe_preview_unavailable">Couldn’t load this feed’s preview.</string>
+    <string name="subscribe_preview_empty">No recent articles found.</string>
+    <string name="subscribe_subscribers">%1$s subscribers</string>
+    <string name="subscribe_folder_dialog_title">Subscribe to which folder?</string>
+    <string name="subscribe_folder_dialog_message">“%1$s” will be added with no folder by default.</string>
+    <string name="login_required">Sign in to Feedly first</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_new_articles">New articles</string>
+    <string name="notification_new_articles_title">%1$d new articles</string>
+    <string name="notification_new_articles_text">Tap to open gReader Neo</string>
+
+    <!-- Widgets -->
+    <string name="widget_unread_count_name">Unread</string>
+    <string name="widget_unread_count_description">Shows the number of unread articles</string>
+
+    <!-- Runtime messages (sync engine, auth) -->
+    <string name="sync_step_outbox">sending changes</string>
+    <string name="sync_step_feeds">subscriptions</string>
+    <string name="sync_step_articles">articles</string>
+    <string name="sync_step_reads">read states</string>
+    <string name="sync_step_counters">counters</string>
+    <string name="sync_step_cleanup">cleanup</string>
+    <string name="sync_failed_at">Failed during %1$s — %2$s</string>
+    <string name="sync_session_expired">Session expired — sign in again</string>
+    <string name="login_error_denied">Authorization denied: %1$s</string>
+    <string name="login_error_state">Invalid OAuth state — try again</string>
+    <string name="login_error_generic">Sign-in failed</string>
+    <string name="subscribe_failed">Couldn’t subscribe</string>
+    <string name="opml_imported">Imported %1$d of %2$d feeds</string>
+    <string name="opml_exported">Exported %1$d feeds</string>
+    <string name="subscription_update_failed">Couldn’t update subscription</string>
+    <string name="subscription_delete_failed">Couldn’t remove subscription</string>
+
+    <!-- Evaluation pass: states, confirmations, a11y -->
+    <string name="empty_search_title">Nothing found</string>
+    <string name="empty_search_message">Try another search term.</string>
+    <string name="empty_unread_title">All caught up!</string>
+    <string name="empty_unread_message">You have no unread articles.</string>
+    <string name="mark_all_read_confirm_title">Mark everything as read?</string>
+    <string name="mark_all_read_confirm_message">All articles from all feeds will be marked as read.</string>
+    <string name="action_remove_feed">Remove feed</string>
+    <string name="action_select_article">Select article</string>
+    <string name="subscribe_idle_hint">Search feeds by name or URL to get started.</string>
+</resources>

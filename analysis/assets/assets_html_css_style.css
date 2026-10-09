@@ -1,0 +1,80 @@
+body {
+    font-size: 14px;
+    font-family: "Helvetica Neue", helvetica, sans-serif;
+    color: #444;
+    background: #eee;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+h2.title {
+    text-align: center;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.center {
+    text-align: center;
+}
+
+.button {
+    background-color: #2357ac;
+    padding: 10px;
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+}
+
+.button a {
+    font-size: 13px;
+    color: #FFF;
+    text-decoration: none;
+}
+
+#error {
+    margin-bottom: 25px;
+}
+
+#error>h1 {
+    font-size: 96px;
+    text-align: center;
+}
+
+#error h3.title {
+    margin: 0 auto;
+    width: 75%;
+    text-align: center;
+}
+
+#error ul.message {
+    margin: 20px auto;
+    width: 75%;
+    color: #47597f;
+    font-size: 14px;
+    background-color: #e5eaf5;
+    padding: 15px 25px;
+    line-height: 150%;
+    list-style: none;
+    border: 1px solid #cfd8ec;
+}
+
+#error ul.message>li {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+#error ul.message>li>a {
+    color: #47597f;
+}

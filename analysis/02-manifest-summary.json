@@ -1,0 +1,373 @@
+{
+ "package": "com.noinnion.android.greader.reader",
+ "activities": [
+  {
+   "name": "com.noinnion.android.greader.ui.login.LoginActivity",
+   "exported": null,
+   "filters": [
+    "android.intent.action.MAIN"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.login.FeedlyLoginActivity",
+   "exported": null,
+   "filters": [
+    "android.intent.action.VIEW"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.login.OldReaderLoginActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.login.InoreaderLoginActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.login.RssReaderLoginActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.home.HomeActivity",
+   "exported": "true",
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.home.HomeTabletActivity",
+   "exported": "true",
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.item.ItemActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.setting.SettingsActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.home.WelcomeActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.premium.PremiumActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.subscription.ManageSourcesActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.subscription.SubscribeActivity",
+   "exported": null,
+   "filters": [
+    "android.intent.action.SEND"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.subscription.ImportOpmlActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.setting.SendLogActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.download.DownloadFeedActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.download.DownloadActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.tts.TtsActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetIconConfigure",
+   "exported": null,
+   "filters": [
+    "android.appwidget.action.APPWIDGET_CONFIGURE"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetSmallConfigureActivity",
+   "exported": null,
+   "filters": [
+    "android.appwidget.action.APPWIDGET_CONFIGURE"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetMediumConfigureActivity",
+   "exported": null,
+   "filters": [
+    "android.appwidget.action.APPWIDGET_CONFIGURE"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetLargeConfigureActivity",
+   "exported": null,
+   "filters": [
+    "android.appwidget.action.APPWIDGET_CONFIGURE"
+   ]
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.media.MusicActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.locale.LocaleEditActivity",
+   "exported": "true",
+   "filters": [
+    "com.twofortyfouram.locale.intent.action.EDIT_SETTING"
+   ]
+  },
+  {
+   "name": "com.google.android.gms.ads.AdActivity",
+   "exported": "false",
+   "filters": []
+  },
+  {
+   "name": "com.noinnion.android.reader.ui.dialog.YoutubePlayerActivity",
+   "exported": null,
+   "filters": []
+  },
+  {
+   "name": "com.google.android.gms.common.api.GoogleApiActivity",
+   "exported": "false",
+   "filters": []
+  },
+  {
+   "name": "com.android.billingclient.api.ProxyBillingActivity",
+   "exported": "false",
+   "filters": []
+  }
+ ],
+ "services": [
+  {
+   "name": "com.noinnion.android.greader.service.SyncService",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.service.CleanService",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.service.FeedService",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.service.DownloadService",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.service.TtsService",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetService",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetLargeV11Service",
+   "exported": "false"
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.media.MusicService",
+   "exported": "false"
+  },
+  {
+   "name": "com.noinnion.android.greader.dashclock.UnreadExtension",
+   "exported": null
+  },
+  {
+   "name": "com.google.firebase.components.ComponentDiscoveryService",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.android.datatransport.runtime.backends.TransportBackendDiscovery",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.mlkit.common.internal.MlKitComponentDiscoveryService",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.android.gms.measurement.AppMeasurementService",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.android.gms.measurement.AppMeasurementJobService",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.android.gms.ads.AdService",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.SystemAlarmService",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemjob.SystemJobService",
+   "exported": "true"
+  },
+  {
+   "name": "androidx.room.MultiInstanceInvalidationService",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService",
+   "exported": "false"
+  }
+ ],
+ "receivers": [
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetUpdateReceiver",
+   "exported": "true"
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetIconProvider",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetSmallProvider",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetMediumProvider",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetLargeProvider",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.media.MusicIntentReceiver",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.receiver.ScheduleReceiver",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.receiver.OnUpgradeReceiver",
+   "exported": null
+  },
+  {
+   "name": "com.noinnion.android.greader.receiver.OnBootCompletedReceiver",
+   "exported": "false"
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.locale.LocaleFireReceiver",
+   "exported": "true"
+  },
+  {
+   "name": "com.google.android.gms.measurement.AppMeasurementReceiver",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.utils.ForceStopRunnable.BroadcastReceiver",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.ConstraintProxy.BatteryChargingProxy",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.ConstraintProxy.BatteryNotLowProxy",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.ConstraintProxy.StorageNotLowProxy",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.ConstraintProxy.NetworkStateProxy",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+   "exported": "false"
+  },
+  {
+   "name": "androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver",
+   "exported": "false"
+  },
+  {
+   "name": "com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver",
+   "exported": "false"
+  }
+ ],
+ "providers": [
+  {
+   "name": "com.noinnion.android.greader.provider.ReaderProvider",
+   "authorities": "com.noinnion.android.greader.reader.provider"
+  },
+  {
+   "name": "com.noinnion.android.greader.provider.LocalFileProvider",
+   "authorities": "com.noinnion.android.greader.reader.localfile"
+  },
+  {
+   "name": "com.noinnion.android.reader.provider.ImageLoaderProvider",
+   "authorities": "com.noinnion.android.greader.reader.imageloader"
+  },
+  {
+   "name": "androidx.core.content.FileProvider",
+   "authorities": "com.noinnion.android.greader.reader.fileprovider"
+  },
+  {
+   "name": "com.noinnion.android.greader.ui.widget.WidgetProvider",
+   "authorities": "com.noinnion.android.greader.reader.widget.provider"
+  },
+  {
+   "name": "com.squareup.picasso.PicassoProvider",
+   "authorities": "com.noinnion.android.greader.reader.com.squareup.picasso"
+  },
+  {
+   "name": "com.google.firebase.provider.FirebaseInitProvider",
+   "authorities": "com.noinnion.android.greader.reader.firebaseinitprovider"
+  },
+  {
+   "name": "com.google.android.gms.ads.MobileAdsInitProvider",
+   "authorities": "com.noinnion.android.greader.reader.mobileadsinitprovider"
+  },
+  {
+   "name": "com.google.mlkit.common.internal.MlKitInitProvider",
+   "authorities": "com.noinnion.android.greader.reader.mlkitinitprovider"
+  },
+  {
+   "name": "androidx.work.impl.WorkManagerInitializer",
+   "authorities": "com.noinnion.android.greader.reader.workmanager-init"
+  }
+ ],
+ "permissions": [
+  "android.permission.INTERNET",
+  "android.permission.ACCESS_NETWORK_STATE",
+  "android.permission.VIBRATE",
+  "android.permission.READ_EXTERNAL_STORAGE",
+  "android.permission.WRITE_EXTERNAL_STORAGE",
+  "android.permission.FOREGROUND_SERVICE",
+  "android.permission.RECEIVE_BOOT_COMPLETED",
+  "android.permission.WAKE_LOCK",
+  "com.android.launcher.permission.INSTALL_SHORTCUT",
+  "com.android.vending.CHECK_LICENSE",
+  "com.android.vending.BILLING",
+  "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"
+ ]
+}

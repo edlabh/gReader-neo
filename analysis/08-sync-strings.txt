@@ -1,0 +1,171 @@
+### SYNC PREFS ###
+syncContext
+syncContext not set
+syncFinished
+syncStarted
+syncWith
+sync_all
+sync_all_offline
+sync_auto_update
+sync_button
+sync_cancel_button
+sync_custom_interval
+sync_excluded
+sync_first_before_open_tag
+sync_include_starred
+sync_interval_hours
+sync_interval_hours_labels
+sync_interval_hours_values
+sync_item_limit
+sync_item_limit_labels
+sync_item_limit_values
+sync_last_sync_count
+sync_local_opimized
+sync_mark_all_read
+sync_notifiable
+sync_notifiable_custom
+sync_notify_custom_led
+sync_notify_custom_sound
+sync_notify_custom_vibrate
+sync_notify_led
+sync_notify_sound
+sync_notify_sound_ringtone
+sync_notify_vibrate
+sync_offline
+sync_offline_last_synced
+sync_offline_unread
+sync_on_start
+sync_selection
+sync_selection_offline
+sync_server_reads
+sync_service_v2
+sync_spinner
+sync_sync_excluded
+sync_time <> ?
+sync_time <> ? AND type != 9
+sync_time DESC limit 
+synchronizedList
+synchronizedMap
+synchronizedSet
+
+### MARKERS / CONTINUATION / ENTRY KEYS ###
+!Did not find balanced marker at '
+"Version marker missing from extras
+#Expected continuation opcode. Got: 
+#Initialization marker file created.
+$Initialization marker file removed: 
+$continuation
+%Could not write app exception marker.
+%This continuation is already complete
+&continuation=
+, continuation=
+2awaitEvenIfOnMainThread task continuation executor
+3: expected close marker for %s (start marker at %s)
+?Problem encountered deleting Crashlytics initialization marker.
+AElig=5i;2v&AMP=12;8&Aacute=5d;2p&Abreve=76;4k&Acirc=5e;2q&Acy=sw;av&Afr=2kn8;1kh&Agrave=5c;2o&Alpha=pd;8d&Amacr=74;4i&A
+CUnexpected close marker '%s': expected '%c' (for %s starting at %s)
+Error creating marker: 
+Found previous crash marker.
+Invalid marker:
+Invalid marker: 
+continuation
+crash_marker
+entryIds
+https://feedly.com/v3/markers
+initialization_marker
+markAsRead
+markAsUnread
+
+### PENDING / OPERATION / QUEUE ###
+	QueueItem
+	operation
+	pongQueue
+	pushQueue
+	queueSize
+	sendQueue
+	taskQueue
+ The operation has been canceled.
+ access$getMessageAndCloseQueue$p
+! because it is no longer enqueued
+!Couldn't add request to queue. %s
+!Id cannot be QueueItem.UNKNOWN_ID
+!Setting status to enqueued for %s
+!access$getSettingsListenerQueue$p
+!gads:remote_log_queue_max_entries
+!measurement.upload.max_queue_time
+"Callable skipped the worker queue.
+"Operation not supported: readUTF()
+"Processing queued up service tasks
+"SnapshotMetadata{hasPendingWrites=
+"TRANSACTION_getLaunchPendingIntent
+"supportsUnsafeByteBufferOperations
+#Dequeue-d command is not the first.
+#Operation not supported: readLine()
+#PENDING_ACCESSIBILITY_STATE_NOT_SET
+#Refused to enqueue task after panic
+#Task exception while flushing queue
+#schedule failed (queue is shutdown)
+$Failed to merge queued bundle. appId
+$Failed to unzip queued bundle. appId
+$Ljava/util/concurrent/BlockingQueue;
+$Ljava/util/concurrent/BlockingQueue<
+$MediaSession.QueueItem {Description=
+$this$appendingSink
+% while trying to fail enqueued calls.
+%Acquiring operation wake lock (%s) %s
+%Queue did not match expected sequence
+%Releasing operation wake lock (%s) %s
+%schedule canceled (queue is shutdown)
+&Tasks have been queued for a long time
+
+### CREATE/ALTER TABLE ###
+!DROP TABLE IF EXISTS `Dependency`
+#DROP TABLE IF EXISTS `SystemIdInfo`
+'ALTER TABLE item ADD COLUMN audio TEXT;
+'ALTER TABLE item ADD COLUMN image TEXT;
+'ALTER TABLE item ADD COLUMN video TEXT;
+(ALTER TABLE apps ADD COLUMN day INTEGER;
+(ALTER TABLE item ADD COLUMN sharer TEXT;
++ALTER TABLE apps ADD COLUMN app_store TEXT;
++ALTER TABLE apps ADD COLUMN ga_app_id TEXT;
++DROP TABLE IF EXISTS offline_buffered_pings
+,ALTER TABLE tag2item_new RENAME TO tag2item;
+,DROP TABLE IF EXISTS offline_signal_contents
+-ALTER TABLE apps ADD COLUMN app_version TEXT;
+.ALTER TABLE apps ADD COLUMN admob_app_id TEXT;
+.DROP TABLE IF EXISTS offline_signal_statistics
+/ALTER TABLE apps ADD COLUMN android_id INTEGER;
+/ALTER TABLE apps ADD COLUMN remote_config BLOB;
+0ALTER TABLE apps ADD COLUMN gmp_version INTEGER;
+1ALTER TABLE queue ADD COLUMN retry_count INTEGER;
+1ALTER TABLE subscription ADD COLUMN charset TEXT;
+2ALTER TABLE apps ADD COLUMN dev_cert_hash INTEGER;
+2ALTER TABLE queue ADD COLUMN has_realtime INTEGER;
+2ALTER TABLE subscription ADD COLUMN feed_url TEXT;
+2ALTER TABLE subscription ADD COLUMN icon_url TEXT;
+3ALTER TABLE apps ADD COLUMN safelisted_events TEXT;
+3ALTER TABLE events ADD COLUMN payload_encoding TEXT
+3ALTER TABLE raw_events ADD COLUMN realtime INTEGER;
+3ALTER TABLE user_attributes ADD COLUMN origin TEXT;
+4ALTER TABLE apps ADD COLUMN app_version_int INTEGER;
+4CREATE INDEX events_backend_id on events(context_id)
+5ALTER TABLE apps ADD COLUMN dynamite_version INTEGER;
+5ALTER TABLE apps ADD COLUMN linked_admob_app_id TEXT;
+5ALTER TABLE transport_contexts ADD COLUMN extras BLOB
+7ALTER TABLE apps ADD COLUMN daily_events_count INTEGER;
+7ALTER TABLE apps ADD COLUMN health_monitor_sample TEXT;
+7ALTER TABLE events ADD COLUMN last_bundled_day INTEGER;
+8ALTER TABLE apps ADD COLUMN config_fetched_time INTEGER;
+9ALTER TABLE events ADD COLUMN last_sampling_rate INTEGER;
+:ALTER TABLE target_globals ADD COLUMN target_count INTEGER
+;ALTER TABLE app2 ADD COLUMN previous_install_count INTEGER;
+;ALTER TABLE apps ADD COLUMN adid_reporting_enabled INTEGER;
+;ALTER TABLE tag ADD COLUMN sort INTEGER NOT NULL DEFAULT 0;
+<ALTER TABLE apps ADD COLUMN daily_conversions_count INTEGER;
+<ALTER TABLE apps ADD COLUMN ssaid_reporting_enabled INTEGER;
+=ALTER TABLE apps ADD COLUMN daily_error_events_count INTEGER;
+=ALTER TABLE apps ADD COLUMN failed_config_fetch_time INTEGER;
+=ALTER TABLE events ADD COLUMN last_bundled_timestamp INTEGER;
+=ALTER TABLE tag ADD COLUMN hidden INTEGER NOT NULL DEFAULT 0;
+>ALTER TABLE apps ADD COLUMN daily_public_events_count INTEGER;
+>ALTER TABLE item ADD COLUMN cached INTEGER NOT NULL DEFAULT 0;
