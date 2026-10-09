@@ -31,13 +31,16 @@ Leitor de RSS/feeds moderno para **Android 15+**, reconstruído a partir da enge
 - [x] **Assinaturas**: busca de feeds no Feedly, **prévia dos últimos artigos antes de assinar (com escolha de pasta; sem pasta por padrão)**, OPML import/export (SAF), share-to-subscribe, **gerenciar assinaturas** (renomear, mover de pasta, remover — sincronizado com a conta Feedly)
 - [x] **Notificações** de novos artigos (canal + permissão + pós-sync)
 - [x] **Widgets** (Glance): lista de feeds com não lidos + **contador pequeno (1×1) estilo ícone com badge**, atualizados pós-sync e em tempo real nas leituras
-- [x] **Avaliação total de usabilidade + visual** (prompt em `docs/prompt-avaliacao-total.md`, relatório em `docs/AVALIACAO-total.md`): rodada 1 (P1) e rodada 2 (P2)
-- [x] **Desfazer (undo)**: swipe de leitura e remoção de feed — o undo da remoção **reassina o feed no Feedly** (com as pastas originais) e reabre a janela de sync para trazer os artigos de volta
+- [x] **Avaliação total de usabilidade + visual** (prompt em `docs/prompt-avaliacao-total.md`, relatório em `docs/AVALIACAO-total.md`): rodadas 1 (P1), 2 (P2) e 3 (P3)
+- [x] **Desfazer (undo)**: swipe de leitura, remoção de feed (reassina no Feedly) e "marcar tudo como lido" (desfaz exatamente os artigos afetados)
 - [x] **Manter não lido** no leitor (flag local que sobrevive a sincronizações e "marcar tudo lido")
 - [x] **Animações de transição** entre telas (fade + slide sutil)
 - [x] **Modo Lista com miniaturas opcionais** (Aparência; padrão desligado)
-- [x] **Testes**: JVM dos DTOs Feedly (regressão de categorias/tags) + smoke test de UI Compose da Home
-- [ ] Futuro: cache offline de artigos/imagens, widgets adicionais (small/large), filtros salvos, tablet 2 painéis
+- [x] **Cache offline**: conteúdo do modo Leitura guardado no banco (migração v1→v2) + pré-cache de imagens em Wi-Fi (Armazenamento; 60 imagens/sync)
+- [x] **Filtros salvos**: escopo + busca + não lidos + ordenação, com nome, no seletor de tópico
+- [x] **Tablet (2 painéis)**: telas ≥ 840dp com drawer fixo e leitor em painel lateral
+- [x] **Testes**: JVM (DTOs Feedly, codec dos filtros) + smoke test de UI Compose da Home
+- [ ] Futuro: widgets adicionais, opção "sincronizar somente em Wi-Fi", backup/restauração de preferências
 
 ### Login no Feedly
 

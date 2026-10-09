@@ -350,6 +350,12 @@ fun SettingsScreen(
                         )
                     }
                 }
+                CardDivider()
+                SwitchRow(
+                    title = stringResource(R.string.prefetch_images),
+                    checked = current.prefetchImages,
+                    onChange = { value -> scope.launch { settingsRepository.setPrefetchImages(value) } },
+                )
             }
 
             SectionTitle(stringResource(R.string.reader_section))

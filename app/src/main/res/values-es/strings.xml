@@ -210,4 +210,18 @@
     <string name="subscription_restored">Suscripción restaurada</string>
     <string name="subscription_restore_failed">No se pudo restaurar la suscripción</string>
     <string name="list_thumbnails">Mostrar imágenes en modo Lista</string>
+
+    <!-- Ronda 3: deshacer "marcar todo" -->
+    <plurals name="mark_all_read_done">
+        <item quantity="one">%1$d artículo marcado como leído</item>
+        <item quantity="other">%1$d artículos marcados como leídos</item>
+    </plurals>
+    <string name="marking_undone">Marcación deshecha</string>
+
+    <!-- Ronda 3: caché offline + filtros guardados -->
+    <string name="prefetch_images">Precargar imágenes (Wi-Fi)</string>
+    <string name="saved_filter_save_current">Guardar filtro actual</string>
+    <string name="saved_filter_name">Nombre del filtro</string>
+    <string name="saved_filter_saved">Filtro guardado</string>
+    <string name="saved_filter_missing">El feed o la carpeta de este filtro ya no existe</string>
 </resources>

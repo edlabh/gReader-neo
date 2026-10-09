@@ -49,16 +49,36 @@ class ArticleActions(private val db: NeoDatabase) {
     }
 
     /**
-     * Marca tudo como lido localmente e enfileira o marker no servidor.
+     * Marca todo o escopo como lido localmente e enfileira o marker no servidor.
+     * Retorna os uids que estavam não lidos (usados pelo "Desfazer").
+     *
+     * @param feedId id local do feed ou -1 para pasta/todos.
+     * @param folderUid uid da pasta (null para feed/todos) — corrige o escopo por pasta.
      * @param streamUid uid do feed ("feed/…"), da pasta ou "global.all" para tudo.
      */
-    suspend fun markAllRead(feedId: Long, streamUid: String) {
-        db.articleDao().markAllRead(feedId, System.currentTimeMillis() / 1000)
+    suspend fun markAllRead(feedId: Long, folderUid: String?, streamUid: String): List<String> {
+        val uids = db.articleDao().unreadUids(feedId, folderUid)
+        db.articleDao().markAllRead(feedId, folderUid, System.currentTimeMillis() / 1000)
         db.syncOperationDao().insert(
             SyncOperationEntity(
                 type = SyncOperationType.MARK_ALL_READ,
                 params = "streamId=$streamUid",
             ),
         )
+        return uids
+    }
+
+    /** Desfaz um "marcar tudo como lido": reverte apenas os uids afetados + markers em lote. */
+    suspend fun undoMarkAllRead(uids: List<String>) {
+        if (uids.isEmpty()) return
+        uids.chunked(500).forEach { chunk ->
+            db.articleDao().markUnreadByUids(chunk)
+            db.syncOperationDao().insert(
+                SyncOperationEntity(
+                    type = SyncOperationType.MARK_UNREAD,
+                    params = "ids=${chunk.joinToString(",")}",
+                ),
+            )
+        }
     }
 }

@@ -102,15 +102,29 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
         }
     }
 
-    // Extração do modo leitura (Readability4J), sob demanda.
+    // Extração do modo leitura: usa o cache offline e, se necessário, extrai (Readability4J).
     LaunchedEffect(mode, article?.id) {
         val current = article ?: return@LaunchedEffect
+        if (mode != ReaderMode.READING || extracted != null) return@LaunchedEffect
+        // Cache offline: conteúdo extraído numa leitura anterior.
+        if (!current.extractedContent.isNullOrBlank()) {
+            extracted = ExtractedArticle(
+                title = current.extractedTitle ?: current.title,
+                html = current.extractedContent,
+                byline = current.author,
+            )
+            return@LaunchedEffect
+        }
         val link = current.link
-        if (mode == ReaderMode.READING && extracted == null && !link.isNullOrBlank()) {
+        if (!link.isNullOrBlank()) {
             loading = true
             error = null
             runCatching { app.articleExtractor.extract(link) }
-                .onSuccess { extracted = it }
+                .onSuccess {
+                    extracted = it
+                    // Guarda para as próximas leituras offline.
+                    app.database.articleDao().saveExtracted(current.id, it.title, it.html)
+                }
                 .onFailure { error = it.message ?: "Falha na extração" }
             loading = false
         }

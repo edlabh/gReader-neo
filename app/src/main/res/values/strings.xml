@@ -210,4 +210,18 @@
     <string name="subscription_restored">Subscription restored</string>
     <string name="subscription_restore_failed">Couldn’t restore subscription</string>
     <string name="list_thumbnails">Show images in List mode</string>
+
+    <!-- Round 3: undo "mark all" -->
+    <plurals name="mark_all_read_done">
+        <item quantity="one">%1$d article marked as read</item>
+        <item quantity="other">%1$d articles marked as read</item>
+    </plurals>
+    <string name="marking_undone">Marking undone</string>
+
+    <!-- Round 3: offline cache + saved filters -->
+    <string name="prefetch_images">Preload images (Wi-Fi)</string>
+    <string name="saved_filter_save_current">Save current filter</string>
+    <string name="saved_filter_name">Filter name</string>
+    <string name="saved_filter_saved">Filter saved</string>
+    <string name="saved_filter_missing">This filter’s feed or folder no longer exists</string>
 </resources>

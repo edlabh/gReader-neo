@@ -210,4 +210,18 @@
     <string name="subscription_restored">Assinatura restaurada</string>
     <string name="subscription_restore_failed">Falha ao restaurar assinatura</string>
     <string name="list_thumbnails">Mostrar imagens no modo Lista</string>
+
+    <!-- Rodada 3: desfazer "marcar tudo" -->
+    <plurals name="mark_all_read_done">
+        <item quantity="one">%1$d artigo marcado como lido</item>
+        <item quantity="other">%1$d artigos marcados como lidos</item>
+    </plurals>
+    <string name="marking_undone">Marcação desfeita</string>
+
+    <!-- Rodada 3: cache offline + filtros salvos -->
+    <string name="prefetch_images">Pré-carregar imagens (Wi-Fi)</string>
+    <string name="saved_filter_save_current">Salvar filtro atual</string>
+    <string name="saved_filter_name">Nome do filtro</string>
+    <string name="saved_filter_saved">Filtro salvo</string>
+    <string name="saved_filter_missing">O feed ou pasta deste filtro não existe mais</string>
 </resources>

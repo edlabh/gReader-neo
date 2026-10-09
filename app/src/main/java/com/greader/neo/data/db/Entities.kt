@@ -68,6 +68,9 @@ data class ArticleEntity(
     val readTime: Long = 0,
     /** Protege o artigo de "marcar tudo como lido" (keep unread do Feedly). */
     val keepUnread: Boolean = false,
+    /** Conteúdo do modo Leitura extraído anteriormente (cache offline). */
+    val extractedContent: String? = null,
+    val extractedTitle: String? = null,
     val syncTime: Long = 0,
 )
 
@@ -103,4 +106,5 @@ object SyncOperationType {
     const val RENAME_TAG = 6
     const val DELETE_TAG = 7
     const val EDIT_ARTICLE_TAG = 8
+    const val MARK_UNREAD = 9
 }

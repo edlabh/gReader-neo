@@ -27,10 +27,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.DoneAll
 import androidx.compose.material.icons.filled.Edit
@@ -62,6 +65,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PermanentDrawerSheet
+import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -73,6 +78,7 @@ import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberSwipeToDismissBoxState
@@ -91,6 +97,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -112,7 +119,9 @@ import com.greader.neo.data.db.FeedEntity
 import com.greader.neo.data.db.Tag2SubEntity
 import com.greader.neo.data.db.TagEntity
 import com.greader.neo.data.prefs.AppSettings
+import com.greader.neo.data.prefs.SavedFilter
 import com.greader.neo.ui.components.RssGlyph
+import com.greader.neo.ui.reader.ReaderScreen
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -150,6 +159,11 @@ fun HomeScreen(
     var deletingFeed by remember { mutableStateOf<FeedEntity?>(null) }
     var confirmMarkAll by remember { mutableStateOf(false) }
     var swipeUndoJob by remember { mutableStateOf<Job?>(null) }
+    var savingFilter by remember { mutableStateOf(false) }
+    var filterName by remember { mutableStateOf("") }
+    // Telas largas (tablet): drawer fixo + painel do leitor ao lado da lista.
+    val wideLayout = LocalConfiguration.current.screenWidthDp >= 840
+    var paneArticleId by remember { mutableStateOf<Long?>(null) }
 
     val feeds by app.database.feedDao().observeAll()
         .collectAsStateWithLifecycle(initialValue = emptyList())
@@ -204,12 +218,31 @@ fun HomeScreen(
 
     fun markAllRead() {
         scope.launch {
-            val streamUid = when (val current = filter) {
+            val current = filter
+            // Escopo local (por feed/pasta/tudo) + marker do servidor correspondente.
+            val scopeFeedId = if (current is FeedFilter.Feed) current.feed.id else -1L
+            val folderUid = (current as? FeedFilter.Folder)?.tag?.uid
+            val streamUid = when (current) {
                 FeedFilter.All -> "global.all"
                 is FeedFilter.Folder -> current.tag.uid
                 is FeedFilter.Feed -> current.feed.uid
             }
-            app.articleActions.markAllRead(feedId, streamUid)
+            val uids = app.articleActions.markAllRead(scopeFeedId, folderUid, streamUid)
+            if (uids.isNotEmpty()) {
+                val result = snackbarHostState.showSnackbar(
+                    message = context.resources.getQuantityString(
+                        R.plurals.mark_all_read_done,
+                        uids.size,
+                        uids.size,
+                    ),
+                    actionLabel = context.getString(R.string.undo),
+                    duration = SnackbarDuration.Long,
+                )
+                if (result == SnackbarResult.ActionPerformed) {
+                    app.articleActions.undoMarkAllRead(uids)
+                    snackbarHostState.showSnackbar(context.getString(R.string.marking_undone))
+                }
+            }
         }
     }
 
@@ -219,6 +252,55 @@ fun HomeScreen(
             confirmMarkAll = true
         } else {
             markAllRead()
+        }
+    }
+
+    /** Salva o filtro atual (escopo + busca + opções) com um nome; mesmo nome substitui. */
+    fun saveCurrentFilter(name: String) {
+        val trimmed = name.trim()
+        if (trimmed.isEmpty()) return
+        val current = filter
+        val saved = SavedFilter(
+            name = trimmed,
+            feedId = (current as? FeedFilter.Feed)?.feed?.id,
+            folderUid = (current as? FeedFilter.Folder)?.tag?.uid,
+            query = query.trim(),
+            unreadOnly = settings.listUnreadOnly,
+            sortOldest = settings.listSortOldest,
+        )
+        scope.launch {
+            app.settings.setSavedFilters(
+                settings.savedFilters.filterNot { it.name == trimmed } + saved,
+            )
+            snackbarHostState.showSnackbar(context.getString(R.string.saved_filter_saved))
+        }
+    }
+
+    /** Aplica um filtro salvo; se o feed/pasta não existir mais, avisa. */
+    fun applyFilter(saved: SavedFilter) {
+        val target = when {
+            saved.feedId != null -> feeds.firstOrNull { it.id == saved.feedId }?.let { FeedFilter.Feed(it) }
+            saved.folderUid != null -> tags.firstOrNull { it.uid == saved.folderUid }
+                ?.let { FeedFilter.Folder(it) }
+            else -> FeedFilter.All
+        }
+        if (target == null) {
+            scope.launch { snackbarHostState.showSnackbar(context.getString(R.string.saved_filter_missing)) }
+            return
+        }
+        filter = target
+        query = saved.query
+        searchVisible = saved.query.isNotBlank()
+        selection = emptySet()
+        scope.launch {
+            app.settings.setListUnreadOnly(saved.unreadOnly)
+            app.settings.setListSortOldest(saved.sortOldest)
+        }
+    }
+
+    fun deleteSavedFilter(saved: SavedFilter) {
+        scope.launch {
+            app.settings.setSavedFilters(settings.savedFilters.filterNot { it.name == saved.name })
         }
     }
 
@@ -247,11 +329,8 @@ fun HomeScreen(
         }
     }
 
-    ModalNavigationDrawer(
-        drawerState = drawerState,
-        drawerContent = {
-            ModalDrawerSheet {
-                DrawerContent(
+    val drawerBody: @Composable () -> Unit = {
+        DrawerContent(
                     email = (authState as? AuthState.Connected)?.email,
                     connected = connected,
                     totalUnread = totalUnread,
@@ -288,10 +367,10 @@ fun HomeScreen(
                         scope.launch { drawerState.close() }
                         onConnectFeedly()
                     },
-                )
-            }
-        },
-    ) {
+        )
+    }
+
+    val listPane: @Composable () -> Unit = {
         Scaffold(
             topBar = {
                 if (selection.isEmpty()) {
@@ -301,20 +380,27 @@ fun HomeScreen(
                                 title = filterTitle,
                                 viewMode = settings.listViewMode,
                                 oldestFirst = settings.listSortOldest,
+                                savedFilters = settings.savedFilters,
                                 onViewMode = { mode ->
                                     scope.launch { app.settings.setListViewMode(mode) }
                                 },
                                 onSortOldest = { oldest ->
                                     scope.launch { app.settings.setListSortOldest(oldest) }
                                 },
+                                onSaveCurrent = { savingFilter = true },
+                                onApply = { saved -> applyFilter(saved) },
+                                onDelete = { saved -> deleteSavedFilter(saved) },
                             )
                         },
                         navigationIcon = {
-                            IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Menu,
-                                    contentDescription = stringResource(R.string.cd_menu),
-                                )
+                            // Em telas largas o drawer é fixo; o botão de menu não é necessário.
+                            if (!wideLayout) {
+                                IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Menu,
+                                        contentDescription = stringResource(R.string.cd_menu),
+                                    )
+                                }
                             }
                         },
                         actions = {
@@ -521,7 +607,12 @@ fun HomeScreen(
                                         selected = item.article.id in selection,
                                         onClick = {
                                             if (selection.isEmpty()) {
-                                                onOpenArticle(item.article.id)
+                                                if (wideLayout) {
+                                                    // Tablet: abre no painel ao lado da lista.
+                                                    paneArticleId = item.article.id
+                                                } else {
+                                                    onOpenArticle(item.article.id)
+                                                }
                                             } else {
                                                 selection = selection.toggle(item.article.id)
                                             }
@@ -576,6 +667,62 @@ fun HomeScreen(
                 }
             }
         }
+    }
+
+    if (wideLayout) {
+        PermanentNavigationDrawer(
+            drawerContent = { PermanentDrawerSheet { drawerBody() } },
+        ) {
+            Row(Modifier.fillMaxSize()) {
+                Box(Modifier.weight(1f)) { listPane() }
+                val openArticle = paneArticleId
+                if (openArticle != null) {
+                    VerticalDivider()
+                    Box(Modifier.width(440.dp)) {
+                        ReaderScreen(
+                            articleId = openArticle,
+                            onBack = { paneArticleId = null },
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = { ModalDrawerSheet { drawerBody() } },
+        ) {
+            listPane()
+        }
+    }
+    // Diálogo para nomear o filtro salvo (escopo + busca + opções atuais).
+    if (savingFilter) {
+        AlertDialog(
+            onDismissRequest = { savingFilter = false },
+            title = { Text(stringResource(R.string.saved_filter_save_current)) },
+            text = {
+                OutlinedTextField(
+                    value = filterName,
+                    onValueChange = { filterName = it },
+                    label = { Text(stringResource(R.string.saved_filter_name)) },
+                    singleLine = true,
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    savingFilter = false
+                    saveCurrentFilter(filterName)
+                    filterName = ""
+                }) {
+                    Text(stringResource(R.string.save))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { savingFilter = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            },
+        )
     }
     // Confirmação de remoção de feed (toque longo no drawer), sincronizada com o Feedly.
     deletingFeed?.let { feed ->
@@ -1383,8 +1530,12 @@ private fun TopicSelector(
     title: String,
     viewMode: Int,
     oldestFirst: Boolean,
+    savedFilters: List<SavedFilter>,
     onViewMode: (Int) -> Unit,
     onSortOldest: (Boolean) -> Unit,
+    onSaveCurrent: () -> Unit,
+    onApply: (SavedFilter) -> Unit,
+    onDelete: (SavedFilter) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -1460,6 +1611,51 @@ private fun TopicSelector(
                     expanded = false
                 },
             )
+            HorizontalDivider(Modifier.padding(horizontal = 8.dp))
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.saved_filter_save_current)) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.BookmarkAdd,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
+                },
+                onClick = {
+                    expanded = false
+                    onSaveCurrent()
+                },
+            )
+            if (savedFilters.isNotEmpty()) {
+                HorizontalDivider(Modifier.padding(horizontal = 8.dp))
+                savedFilters.forEach { saved ->
+                    DropdownMenuItem(
+                        text = {
+                            Text(saved.name, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Bookmark,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp),
+                            )
+                        },
+                        trailingIcon = {
+                            IconButton(onClick = { onDelete(saved) }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Delete,
+                                    contentDescription = stringResource(R.string.cd_delete),
+                                    modifier = Modifier.size(18.dp),
+                                )
+                            }
+                        },
+                        onClick = {
+                            expanded = false
+                            onApply(saved)
+                        },
+                    )
+                }
+            }
         }
     }
 }

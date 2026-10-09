@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
         Tag2ArticleEntity::class,
         SyncOperationEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 abstract class NeoDatabase : RoomDatabase() {

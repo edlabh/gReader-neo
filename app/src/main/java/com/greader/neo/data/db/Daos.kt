@@ -149,9 +149,35 @@ interface ArticleDao {
 
     @Query(
         "UPDATE articles SET read = 1, readTime = :readTime " +
-            "WHERE (:feedId < 0 OR feedId = :feedId) AND keepUnread = 0",
+            "WHERE (:feedId < 0 OR feedId = :feedId) " +
+            "AND (:folderUid IS NULL OR feedId IN (SELECT feedId FROM tag2sub WHERE tagUid = :folderUid)) " +
+            "AND keepUnread = 0",
     )
-    suspend fun markAllRead(feedId: Long, readTime: Long)
+    suspend fun markAllRead(feedId: Long, folderUid: String?, readTime: Long)
+
+    /** Uids não lidos no escopo (capturados antes do markAllRead, para o desfazer). */
+    @Query(
+        "SELECT uid FROM articles WHERE read = 0 " +
+            "AND (:feedId < 0 OR feedId = :feedId) " +
+            "AND (:folderUid IS NULL OR feedId IN (SELECT feedId FROM tag2sub WHERE tagUid = :folderUid)) " +
+            "AND keepUnread = 0",
+    )
+    suspend fun unreadUids(feedId: Long, folderUid: String?): List<String>
+
+    /** Reverte exatamente os uids informados (desfazer do marcar tudo). */
+    @Query("UPDATE articles SET read = 0 WHERE uid IN (:uids) AND keepUnread = 0")
+    suspend fun markUnreadByUids(uids: List<String>)
+
+    /** Guarda o conteúdo extraído (modo Leitura) para leitura offline. */
+    @Query("UPDATE articles SET extractedContent = :html, extractedTitle = :title WHERE id = :id")
+    suspend fun saveExtracted(id: Long, title: String?, html: String)
+
+    /** URLs de imagens dos artigos mais recentes (pré-cache offline em Wi-Fi). */
+    @Query(
+        "SELECT image FROM articles WHERE image IS NOT NULL AND image <> '' " +
+            "GROUP BY image ORDER BY MAX(publishedTime) DESC LIMIT :limit",
+    )
+    suspend fun recentImageUrls(limit: Int): List<String>
 
     @Query("SELECT COUNT(*) FROM articles")
     suspend fun count(): Int

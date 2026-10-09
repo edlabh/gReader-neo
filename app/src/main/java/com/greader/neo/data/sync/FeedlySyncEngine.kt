@@ -158,6 +158,14 @@ class FeedlySyncEngine(
                     api.markers(header, request).isSuccessful
                 }
 
+                SyncOperationType.MARK_UNREAD -> {
+                    val ids = params["ids"]
+                        ?.split(',')
+                        ?.filter { it.isNotBlank() }
+                        .orEmpty()
+                    ids.isEmpty() || marker(header, "markAsUnread", ids)
+                }
+
                 // Tipos de edição de pastas/labels ainda não expostos na UI — descartar.
                 else -> true
             }

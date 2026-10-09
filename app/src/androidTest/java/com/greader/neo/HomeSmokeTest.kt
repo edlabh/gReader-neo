@@ -22,7 +22,8 @@ class HomeSmokeTest {
 
     @Test
     fun homeShowsTopBar() {
-        val menu = composeRule.activity.getString(R.string.cd_menu)
-        composeRule.onNodeWithContentDescription(menu).assertExists()
+        // O ícone de sync existe nos dois layouts (telefone e tablet 2 painéis).
+        val sync = composeRule.activity.getString(R.string.cd_sync)
+        composeRule.onNodeWithContentDescription(sync).assertExists()
     }
 }

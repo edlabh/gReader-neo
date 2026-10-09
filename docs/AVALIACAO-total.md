@@ -68,3 +68,13 @@
 - [x] **Modo Lista com miniaturas opcionais** (toggle em Aparência; padrão desligado)
 
 Pendentes para uma rodada futura: undo para "marcar tudo como lido", cache offline de artigos/imagens, filtros salvos, tablet 2 painéis. Rodar novamente o prompt de `docs/prompt-avaliacao-total.md` após a rodada para reavaliar as notas.
+
+## F. Rodada 3 — executada
+
+- [x] **Desfazer "marcar tudo como lido"**: captura os artigos que estavam não lidos antes da ação e desfaz exatamente esses (local + markers em lote no Feedly). Corrigido também um bug de escopo: marcar tudo dentro de uma **pasta** afetava os outros feeds
+- [x] **Cache offline**: o modo Leitura guarda o conteúdo extraído no banco (migração v1→v2; releituras funcionam offline) + pré-cache de imagens dos artigos recentes em Wi-Fi (preferência em Armazenamento; 60 imagens por sync)
+- [x] **Filtros salvos**: salvar o filtro atual (feed/pasta + busca + não lidos + ordenação) com um nome no seletor de tópico; aplicar e excluir pelo próprio seletor
+- [x] **Tablet (2 painéis)**: em telas ≥ 840dp o drawer vira fixo e o leitor abre num painel lateral, sem sair da lista
+- [x] **Testes**: codec dos filtros salvos (round-trip + tolerância a JSON ausente/corrompido)
+
+Pendentes para o futuro: widgets adicionais, "sincronizar somente em Wi-Fi", backup/restauração de preferências.

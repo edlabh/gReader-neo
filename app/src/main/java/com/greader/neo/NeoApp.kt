@@ -2,7 +2,11 @@ package com.greader.neo
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.greader.neo.data.ArticleActions
 import com.greader.neo.data.SubscriptionActions
 import com.greader.neo.data.auth.AuthManager
@@ -17,6 +21,8 @@ import com.greader.neo.data.reader.ArticleExtractor
 import com.greader.neo.data.sync.FeedlySyncEngine
 import com.greader.neo.data.sync.SyncOutcome
 import com.greader.neo.data.sync.SyncScheduler
+import coil3.SingletonImageLoader
+import coil3.request.ImageRequest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -87,6 +93,8 @@ class NeoApp : Application() {
                     syncStatus.value = SyncStatus.Idle
                 }
             }
+            // Pré-cache de imagens para leitura offline (respeita Wi-Fi + preferência).
+            prefetchRecentImages()
         }
         return outcome
     }
@@ -97,9 +105,39 @@ class NeoApp : Application() {
         appScope.launch { runSync() }
     }
 
+    /**
+     * Pré-baixa imagens dos artigos recentes para leitura offline.
+     * Só roda quando a preferência está ligada e a rede ativa é Wi-Fi.
+     */
+    fun prefetchRecentImages() {
+        appScope.launch {
+            if (!settings.current().prefetchImages || !isOnWifi()) return@launch
+            val urls = runCatching { database.articleDao().recentImageUrls(60) }
+                .getOrDefault(emptyList())
+            if (urls.isEmpty()) return@launch
+            val loader = SingletonImageLoader.get(this@NeoApp)
+            urls.forEach { url ->
+                loader.enqueue(
+                    ImageRequest.Builder(this@NeoApp)
+                        .data(url)
+                        .size(512)
+                        .build(),
+                )
+            }
+        }
+    }
+
+    private fun isOnWifi(): Boolean {
+        val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager ?: return false
+        val capabilities = manager.getNetworkCapabilities(manager.activeNetwork) ?: return false
+        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+    }
+
     override fun onCreate() {
         super.onCreate()
-        database = Room.databaseBuilder(this, NeoDatabase::class.java, "reader.db").build()
+        database = Room.databaseBuilder(this, NeoDatabase::class.java, "reader.db")
+            .addMigrations(MIGRATION_1_2)
+            .build()
         settings = SettingsRepository(this)
         feedlyApi = createFeedlyApi()
         tokenStore = SecureTokenStore(this)
@@ -131,4 +169,12 @@ sealed interface SyncStatus {
     data object Running : SyncStatus
     data class Success(val newArticles: Int) : SyncStatus
     data class Error(val message: String) : SyncStatus
+}
+
+/** v1 → v2: cache do conteúdo extraído do modo Leitura (leitura offline). */
+private val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE articles ADD COLUMN extractedContent TEXT")
+        db.execSQL("ALTER TABLE articles ADD COLUMN extractedTitle TEXT")
+    }
 }
