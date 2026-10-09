@@ -202,4 +202,12 @@
     <string name="action_remove_feed">Remove feed</string>
     <string name="action_select_article">Select article</string>
     <string name="subscribe_idle_hint">Search feeds by name or URL to get started.</string>
+
+    <!-- P2 round: undo, keep unread, list thumbnails -->
+    <string name="undo">Undo</string>
+    <string name="article_marked_read">Marked as read</string>
+    <string name="article_marked_unread">Marked as unread</string>
+    <string name="subscription_restored">Subscription restored</string>
+    <string name="subscription_restore_failed">Couldn’t restore subscription</string>
+    <string name="list_thumbnails">Show images in List mode</string>
 </resources>

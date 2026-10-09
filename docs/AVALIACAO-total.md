@@ -59,6 +59,12 @@
 - [x] 3 idiomas íntegros (incluindo novas mensagens)
 - [x] Builds **debug** e **release (R8)** verdes
 
-## E. Próxima rodada sugerida (P2)
+## E. Rodada P2 — executada
 
-Prioridade: undo em ações destrutivas → animações de transição → cobertura de testes de UI → feature "keep unread". Rodar novamente o prompt de `docs/prompt-avaliacao-total.md` após a rodada para reavaliar as notas.
+- [x] **Undo em ações destrutivas**: swipe de leitura (desfaz a leitura) e remoção de feed (reassina no Feedly com as pastas originais, restaura o filtro e reabre a janela de sync para trazer os artigos de volta)
+- [x] **Manter não lido** no leitor: alternativa à marcação automática ao abrir; flag local (`keepUnread`) respeitada por "marcar como lido" e "marcar tudo como lido"
+- [x] **Animações de transição** entre telas (fade + slide sutil; direção consistente ao avançar/voltar)
+- [x] **Testes**: JVM para os DTOs do Feedly (regressão do bug de categorias/tags) + smoke test de UI Compose (Home), rodável com device conectado
+- [x] **Modo Lista com miniaturas opcionais** (toggle em Aparência; padrão desligado)
+
+Pendentes para uma rodada futura: undo para "marcar tudo como lido", cache offline de artigos/imagens, filtros salvos, tablet 2 painéis. Rodar novamente o prompt de `docs/prompt-avaliacao-total.md` após a rodada para reavaliar as notas.

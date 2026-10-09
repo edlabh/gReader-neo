@@ -18,9 +18,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.MarkEmailUnread
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarBorder
+import androidx.compose.material.icons.outlined.MarkEmailUnread
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -137,6 +139,37 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                 },
                 actions = {
                     current?.let { item ->
+                        // Manter não lido: flag local que sobrevive a marcações automáticas.
+                        IconButton(onClick = {
+                            val keepUnread = item.read
+                            scope.launch {
+                                app.articleActions.setKeepUnread(item.id, item.uid, keepUnread)
+                                article = item.copy(
+                                    read = !keepUnread,
+                                    readTime = if (keepUnread) {
+                                        item.readTime
+                                    } else {
+                                        System.currentTimeMillis() / 1000
+                                    },
+                                )
+                            }
+                        }) {
+                            Icon(
+                                imageVector = if (item.read) {
+                                    Icons.Outlined.MarkEmailUnread
+                                } else {
+                                    Icons.Filled.MarkEmailUnread
+                                },
+                                contentDescription = stringResource(
+                                    if (item.read) R.string.cd_mark_unread else R.string.cd_mark_read,
+                                ),
+                                tint = if (item.read) {
+                                    LocalContentColor.current
+                                } else {
+                                    MaterialTheme.colorScheme.primary
+                                },
+                            )
+                        }
                         IconButton(onClick = {
                             scope.launch {
                                 app.articleActions.setStarred(item.id, item.uid, !item.starred)

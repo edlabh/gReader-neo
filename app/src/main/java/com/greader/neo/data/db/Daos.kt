@@ -140,6 +140,10 @@ interface ArticleDao {
     @Query("UPDATE articles SET read = :read, readTime = :readTime WHERE id = :id")
     suspend fun updateReadState(id: Long, read: Boolean, readTime: Long)
 
+    /** Flag local "manter não lido" (Respeitada por markRead/markAllRead do sync). */
+    @Query("UPDATE articles SET keepUnread = :keepUnread WHERE id = :id")
+    suspend fun updateKeepUnread(id: Long, keepUnread: Boolean)
+
     @Query("UPDATE articles SET starred = :starred WHERE id = :id")
     suspend fun updateStarred(id: Long, starred: Boolean)
 

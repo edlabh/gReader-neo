@@ -30,6 +30,7 @@ data class AppSettings(
     val listViewMode: Int = 1,
     val listSortOldest: Boolean = false,
     val listUnreadOnly: Boolean = false,
+    val listThumbnails: Boolean = false,
     val retentionDays: Int = 7,
     val webViewEmbedded: Boolean = true,
     val lastSyncTime: Long = 0,
@@ -51,6 +52,7 @@ class SettingsRepository(private val context: Context) {
         val LIST_VIEW_MODE = intPreferencesKey("list_view_mode")
         val LIST_SORT_OLDEST = booleanPreferencesKey("list_sort_oldest")
         val LIST_UNREAD_ONLY = booleanPreferencesKey("list_unread_only")
+        val LIST_THUMBNAILS = booleanPreferencesKey("list_thumbnails")
         val RETENTION_DAYS = intPreferencesKey("retention_days")
         val WEB_VIEW_EMBEDDED = booleanPreferencesKey("web_view_embedded")
         val LAST_SYNC_TIME = longPreferencesKey("last_sync_time")
@@ -71,6 +73,7 @@ class SettingsRepository(private val context: Context) {
             listViewMode = prefs[Keys.LIST_VIEW_MODE] ?: 1,
             listSortOldest = prefs[Keys.LIST_SORT_OLDEST] ?: false,
             listUnreadOnly = prefs[Keys.LIST_UNREAD_ONLY] ?: false,
+            listThumbnails = prefs[Keys.LIST_THUMBNAILS] ?: false,
             retentionDays = prefs[Keys.RETENTION_DAYS] ?: 7,
             webViewEmbedded = prefs[Keys.WEB_VIEW_EMBEDDED] ?: true,
             lastSyncTime = prefs[Keys.LAST_SYNC_TIME] ?: 0L,
@@ -127,6 +130,10 @@ class SettingsRepository(private val context: Context) {
 
     suspend fun setListUnreadOnly(value: Boolean) {
         context.dataStore.edit { it[Keys.LIST_UNREAD_ONLY] = value }
+    }
+
+    suspend fun setListThumbnails(value: Boolean) {
+        context.dataStore.edit { it[Keys.LIST_THUMBNAILS] = value }
     }
 
     suspend fun setRetentionDays(value: Int) {

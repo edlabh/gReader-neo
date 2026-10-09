@@ -72,4 +72,35 @@ class SubscriptionActions(
                 db.feedDao().deleteById(feed.id)
             }
         }
+
+    /**
+     * Desfaz uma remoção: reassina o feed no Feedly (mesmo POST de subscribe/update,
+     * com as pastas capturadas antes da remoção) e restaura as linhas locais.
+     */
+    suspend fun restore(feed: FeedEntity, tagUids: List<String>): Result<Unit> =
+        runCatching {
+            val token = auth.validAccessToken()
+                ?: error(context.getString(R.string.login_required))
+            val categories = db.tagDao().all()
+                .filter { it.uid in tagUids }
+                .map { FeedlyCategory(id = it.uid, label = it.label) }
+            val body = FeedlySubscriptionUpdate(
+                id = feed.uid,
+                title = feed.title,
+                updated = System.currentTimeMillis(),
+                categories = categories,
+            )
+            val response = api.updateSubscription("OAuth $token", body)
+            if (!response.isSuccessful) error("HTTP ${response.code()}")
+
+            withContext(Dispatchers.IO) {
+                db.feedDao().upsert(feed)
+                if (tagUids.isNotEmpty()) {
+                    val now = System.currentTimeMillis() / 1000
+                    db.tag2SubDao().upsertAll(
+                        tagUids.map { Tag2SubEntity(tagUid = it, feedId = feed.id, syncTime = now) },
+                    )
+                }
+            }
+        }
 }

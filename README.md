@@ -31,6 +31,12 @@ Leitor de RSS/feeds moderno para **Android 15+**, reconstruído a partir da enge
 - [x] **Assinaturas**: busca de feeds no Feedly, **prévia dos últimos artigos antes de assinar (com escolha de pasta; sem pasta por padrão)**, OPML import/export (SAF), share-to-subscribe, **gerenciar assinaturas** (renomear, mover de pasta, remover — sincronizado com a conta Feedly)
 - [x] **Notificações** de novos artigos (canal + permissão + pós-sync)
 - [x] **Widgets** (Glance): lista de feeds com não lidos + **contador pequeno (1×1) estilo ícone com badge**, atualizados pós-sync e em tempo real nas leituras
+- [x] **Avaliação total de usabilidade + visual** (prompt em `docs/prompt-avaliacao-total.md`, relatório em `docs/AVALIACAO-total.md`): rodada 1 (P1) e rodada 2 (P2)
+- [x] **Desfazer (undo)**: swipe de leitura e remoção de feed — o undo da remoção **reassina o feed no Feedly** (com as pastas originais) e reabre a janela de sync para trazer os artigos de volta
+- [x] **Manter não lido** no leitor (flag local que sobrevive a sincronizações e "marcar tudo lido")
+- [x] **Animações de transição** entre telas (fade + slide sutil)
+- [x] **Modo Lista com miniaturas opcionais** (Aparência; padrão desligado)
+- [x] **Testes**: JVM dos DTOs Feedly (regressão de categorias/tags) + smoke test de UI Compose da Home
 - [ ] Futuro: cache offline de artigos/imagens, widgets adicionais (small/large), filtros salvos, tablet 2 painéis
 
 ### Login no Feedly
@@ -61,6 +67,8 @@ O fluxo é Authorization Code via Custom Tabs; o retorno chega pelo deep link
 ./gradlew :app:assembleDebug     # APK debug (app/build/outputs/apk/debug/)
 ./gradlew :app:assembleRelease   # APK release com R8 (app/build/outputs/apk/release/, ~4,3 MB)
 ./gradlew :app:installDebug      # instalar em dispositivo/emulador conectado
+./gradlew :app:testDebugUnitTest # testes JVM (DTOs do Feedly)
+./gradlew :app:connectedDebugAndroidTest  # smoke test de UI (requer device/emulador)
 ```
 
 Requisitos: JDK 17+ e Android SDK com platform 37.0 (compileSdk 37; já configurado em `local.properties`).

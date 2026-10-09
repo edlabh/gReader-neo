@@ -202,4 +202,12 @@
     <string name="action_remove_feed">Remover feed</string>
     <string name="action_select_article">Selecionar artigo</string>
     <string name="subscribe_idle_hint">Busque feeds por nome ou URL para começar.</string>
+
+    <!-- Rodada P2: desfazer, manter não lido, miniaturas na lista -->
+    <string name="undo">Desfazer</string>
+    <string name="article_marked_read">Marcado como lido</string>
+    <string name="article_marked_unread">Marcado como não lido</string>
+    <string name="subscription_restored">Assinatura restaurada</string>
+    <string name="subscription_restore_failed">Falha ao restaurar assinatura</string>
+    <string name="list_thumbnails">Mostrar imagens no modo Lista</string>
 </resources>

@@ -63,8 +63,10 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -111,6 +113,7 @@ import com.greader.neo.data.db.Tag2SubEntity
 import com.greader.neo.data.db.TagEntity
 import com.greader.neo.data.prefs.AppSettings
 import com.greader.neo.ui.components.RssGlyph
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.ZoneId
@@ -146,6 +149,7 @@ fun HomeScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     var deletingFeed by remember { mutableStateOf<FeedEntity?>(null) }
     var confirmMarkAll by remember { mutableStateOf(false) }
+    var swipeUndoJob by remember { mutableStateOf<Job?>(null) }
 
     val feeds by app.database.feedDao().observeAll()
         .collectAsStateWithLifecycle(initialValue = emptyList())
@@ -162,11 +166,17 @@ fun HomeScreen(
     // Preferências de densidade/fonte/modo da lista (aplicadas em tempo real).
     val settings by app.settings.settings
         .collectAsStateWithLifecycle(initialValue = AppSettings())
-    val listStyle = remember(settings.listDensity, settings.listFontSizeSp, settings.listViewMode) {
+    val listStyle = remember(
+        settings.listDensity,
+        settings.listFontSizeSp,
+        settings.listViewMode,
+        settings.listThumbnails,
+    ) {
         listStyleFor(
             settings.listDensity,
             settings.listFontSizeSp,
             compact = settings.listViewMode == 0,
+            thumbnails = settings.listThumbnails,
         )
     }
 
@@ -518,12 +528,38 @@ fun HomeScreen(
                                         },
                                         onLongClick = { selection = selection.toggle(item.article.id) },
                                         onSwipe = {
+                                            val wasRead = item.article.read
+                                            val target = !wasRead
+                                            // Gravação independente do snackbar (não é cancelada por ele).
                                             scope.launch {
                                                 app.articleActions.setRead(
                                                     item.article.id,
                                                     item.article.uid,
-                                                    !item.article.read,
+                                                    target,
                                                 )
+                                            }
+                                            swipeUndoJob?.cancel()
+                                            swipeUndoJob = scope.launch {
+                                                val result = snackbarHostState.showSnackbar(
+                                                    message = context.getString(
+                                                        if (target) {
+                                                            R.string.article_marked_read
+                                                        } else {
+                                                            R.string.article_marked_unread
+                                                        },
+                                                    ),
+                                                    actionLabel = context.getString(R.string.undo),
+                                                    duration = SnackbarDuration.Short,
+                                                )
+                                                if (result == SnackbarResult.ActionPerformed) {
+                                                    scope.launch {
+                                                        app.articleActions.setRead(
+                                                            item.article.id,
+                                                            item.article.uid,
+                                                            wasRead,
+                                                        )
+                                                    }
+                                                }
                                             }
                                         },
                                     )
@@ -551,13 +587,35 @@ fun HomeScreen(
                 TextButton(onClick = {
                     deletingFeed = null
                     val wasCurrentFilter = (filter as? FeedFilter.Feed)?.feed?.id == feed.id
+                    // Pastas do feed capturadas antes da remoção, para o "Desfazer".
+                    val tagUids = links.filter { it.feedId == feed.id }.map { it.tagUid }
                     scope.launch {
                         app.subscriptionActions.delete(feed)
                             .onSuccess {
                                 if (wasCurrentFilter) filter = FeedFilter.All
-                                snackbarHostState.showSnackbar(
-                                    context.getString(R.string.subscription_deleted),
+                                val result = snackbarHostState.showSnackbar(
+                                    message = context.getString(R.string.subscription_deleted),
+                                    actionLabel = context.getString(R.string.undo),
+                                    duration = SnackbarDuration.Long,
                                 )
+                                if (result == SnackbarResult.ActionPerformed) {
+                                    app.subscriptionActions.restore(feed, tagUids)
+                                        .onSuccess {
+                                            if (wasCurrentFilter) filter = FeedFilter.Feed(feed)
+                                            // Reabre a janela de sync para trazer os artigos de volta.
+                                            app.settings.setLastSyncTime(0)
+                                            app.syncNow()
+                                            snackbarHostState.showSnackbar(
+                                                context.getString(R.string.subscription_restored),
+                                            )
+                                        }
+                                        .onFailure {
+                                            snackbarHostState.showSnackbar(
+                                                it.message
+                                                    ?: context.getString(R.string.subscription_restore_failed),
+                                            )
+                                        }
+                                }
                             }
                             .onFailure {
                                 snackbarHostState.showSnackbar(
@@ -1169,6 +1227,17 @@ private fun ArticleRow(
                     // Sem corte: o título completo é exibido, quebrando em quantas linhas precisar.
                 )
             }
+            if (style.showThumbnails && !article.image.isNullOrBlank()) {
+                Spacer(Modifier.width(12.dp))
+                AsyncImage(
+                    model = article.image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(style.thumbnailSize)
+                        .clip(RoundedCornerShape(14.dp)),
+                )
+            }
         }
         return
     }
@@ -1265,9 +1334,15 @@ private data class ListStyle(
     val gap: Dp,
     val dotTopPadding: Dp,
     val compact: Boolean,
+    val showThumbnails: Boolean = false,
 )
 
-private fun listStyleFor(density: Int, fontSp: Int, compact: Boolean): ListStyle = when (density) {
+private fun listStyleFor(
+    density: Int,
+    fontSp: Int,
+    compact: Boolean,
+    thumbnails: Boolean,
+): ListStyle = when (density) {
     0 -> ListStyle(
         verticalPadding = if (compact) 6.dp else 8.dp,
         thumbnailSize = 48.dp,
@@ -1297,7 +1372,7 @@ private fun listStyleFor(density: Int, fontSp: Int, compact: Boolean): ListStyle
         dotTopPadding = 7.dp,
         compact = compact,
     )
-}
+}.copy(showThumbnails = thumbnails)
 
 private fun Set<Long>.toggle(id: Long): Set<Long> =
     if (contains(id)) this - id else this + id

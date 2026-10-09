@@ -1,6 +1,11 @@
 package com.greader.neo.ui.navigation
 
 import android.net.Uri
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
@@ -45,7 +50,23 @@ fun NeoNavHost() {
         }
     }
 
-    NavHost(navController = navController, startDestination = Routes.HOME) {
+    NavHost(
+        navController = navController,
+        startDestination = Routes.HOME,
+        // Transições sutis: avançar desliza da direita; voltar, da esquerda.
+        enterTransition = {
+            fadeIn(tween(220)) + slideInHorizontally(tween(220)) { it / 16 }
+        },
+        exitTransition = {
+            fadeOut(tween(140)) + slideOutHorizontally(tween(220)) { -it / 16 }
+        },
+        popEnterTransition = {
+            fadeIn(tween(220)) + slideInHorizontally(tween(220)) { -it / 16 }
+        },
+        popExitTransition = {
+            fadeOut(tween(140)) + slideOutHorizontally(tween(220)) { it / 16 }
+        },
+    ) {
         composable(Routes.HOME) {
             HomeScreen(
                 onOpenSettings = { navController.navigate(Routes.SETTINGS) },

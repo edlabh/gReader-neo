@@ -312,6 +312,12 @@ fun SettingsScreen(
                     checked = current.listDivider,
                     onChange = { value -> scope.launch { settingsRepository.setListDivider(value) } },
                 )
+                CardDivider()
+                SwitchRow(
+                    title = stringResource(R.string.list_thumbnails),
+                    checked = current.listThumbnails,
+                    onChange = { value -> scope.launch { settingsRepository.setListThumbnails(value) } },
+                )
             }
 
             SectionTitle(stringResource(R.string.retention_section))
