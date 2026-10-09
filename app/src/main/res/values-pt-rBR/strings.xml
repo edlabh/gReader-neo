@@ -218,10 +218,6 @@
     </plurals>
     <string name="marking_undone">Marcação desfeita</string>
 
-    <!-- Rodada 3: cache offline + filtros salvos -->
+    <!-- Rodada 3: cache offline -->
     <string name="prefetch_images">Pré-carregar imagens (Wi-Fi)</string>
-    <string name="saved_filter_save_current">Salvar filtro atual</string>
-    <string name="saved_filter_name">Nome do filtro</string>
-    <string name="saved_filter_saved">Filtro salvo</string>
-    <string name="saved_filter_missing">O feed ou pasta deste filtro não existe mais</string>
 </resources>

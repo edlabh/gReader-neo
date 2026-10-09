@@ -25,7 +25,7 @@ Leitor de RSS/feeds moderno para **Android 15+**, reconstruído a partir da enge
 - [x] **Agendamento flexível**: seletor único com **Atualização Manual** (sem background) e frequências de 5 min a 24 h (1 h padrão)
 - [x] **Idiomas**: Português (BR) · Inglês (padrão) · Espanhol — segue o idioma do sistema (inclui mensagens de sync/erros/acessibilidade)
 - [x] **Lista de artigos**: por feed/pasta/todos, busca local, seleção múltipla, swipe (lido), marcar tudo lido
-- [x] **Personalização da lista**: densidade, tamanho da fonte, linha entre artigos, **modos Lista/Grade**, **ordenação (recentes/antigos)**, **não lidos em negrito / lidos discretos** — tudo em tempo real
+- [x] **Personalização da lista**: densidade, tamanho da fonte, linha entre artigos, **modos Lista/Grade**, **ordenação (recentes/antigos)**, **não lidos em negrito / lidos discretos** — as escolhas ficam **salvas automaticamente** e valem para as próximas aberturas (aplicadas em tempo real)
 - [x] **Armazenamento**: retenção configurável (1/3/7/14/30 dias ou nunca; **padrão 7 dias**; estrelados preservados) com limpeza automática pós-sync
 - [x] **Leitor 3 modos**: Feed · Leitura (Readability4J) · Web, com estrela, compartilhar e **navegador embutido/externo configurável (padrão: embutido, com histórico de navegação no botão voltar)**
 - [x] **Assinaturas**: busca de feeds no Feedly, **prévia dos últimos artigos antes de assinar (com escolha de pasta; sem pasta por padrão)**, OPML import/export (SAF), share-to-subscribe, **gerenciar assinaturas** (renomear, mover de pasta, remover — sincronizado com a conta Feedly)
@@ -37,7 +37,6 @@ Leitor de RSS/feeds moderno para **Android 15+**, reconstruído a partir da enge
 - [x] **Animações de transição** entre telas (fade + slide sutil)
 - [x] **Modo Lista com miniaturas opcionais** (Aparência; padrão desligado)
 - [x] **Cache offline**: conteúdo do modo Leitura guardado no banco (migração v1→v2) + pré-cache de imagens em Wi-Fi (Armazenamento; 60 imagens/sync)
-- [x] **Filtros salvos**: escopo + busca + não lidos + ordenação, com nome, no seletor de tópico
 - [x] **Tablet (2 painéis)**: telas ≥ 840dp com drawer fixo e leitor em painel lateral
 - [x] **Testes**: JVM (DTOs Feedly, codec dos filtros) + smoke test de UI Compose da Home
 - [ ] Futuro: widgets adicionais, opção "sincronizar somente em Wi-Fi", backup/restauração de preferências

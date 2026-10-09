@@ -7,7 +7,6 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -35,7 +34,6 @@ data class AppSettings(
     val retentionDays: Int = 7,
     val webViewEmbedded: Boolean = true,
     val prefetchImages: Boolean = true,
-    val savedFilters: List<SavedFilter> = emptyList(),
     val lastSyncTime: Long = 0,
 )
 
@@ -59,7 +57,6 @@ class SettingsRepository(private val context: Context) {
         val RETENTION_DAYS = intPreferencesKey("retention_days")
         val WEB_VIEW_EMBEDDED = booleanPreferencesKey("web_view_embedded")
         val PREFETCH_IMAGES = booleanPreferencesKey("prefetch_images")
-        val SAVED_FILTERS = stringPreferencesKey("saved_filters")
         val LAST_SYNC_TIME = longPreferencesKey("last_sync_time")
     }
 
@@ -82,7 +79,6 @@ class SettingsRepository(private val context: Context) {
             retentionDays = prefs[Keys.RETENTION_DAYS] ?: 7,
             webViewEmbedded = prefs[Keys.WEB_VIEW_EMBEDDED] ?: true,
             prefetchImages = prefs[Keys.PREFETCH_IMAGES] ?: true,
-            savedFilters = SavedFiltersCodec.decode(prefs[Keys.SAVED_FILTERS]),
             lastSyncTime = prefs[Keys.LAST_SYNC_TIME] ?: 0L,
         )
     }
@@ -153,10 +149,6 @@ class SettingsRepository(private val context: Context) {
 
     suspend fun setPrefetchImages(value: Boolean) {
         context.dataStore.edit { it[Keys.PREFETCH_IMAGES] = value }
-    }
-
-    suspend fun setSavedFilters(value: List<SavedFilter>) {
-        context.dataStore.edit { it[Keys.SAVED_FILTERS] = SavedFiltersCodec.encode(value) }
     }
 
     suspend fun lastSyncTime(): Long = settings.first().lastSyncTime

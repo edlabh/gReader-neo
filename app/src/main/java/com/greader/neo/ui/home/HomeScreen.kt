@@ -27,13 +27,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ViewList
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.BookmarkAdd
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.DoneAll
 import androidx.compose.material.icons.filled.Edit
@@ -119,7 +116,6 @@ import com.greader.neo.data.db.FeedEntity
 import com.greader.neo.data.db.Tag2SubEntity
 import com.greader.neo.data.db.TagEntity
 import com.greader.neo.data.prefs.AppSettings
-import com.greader.neo.data.prefs.SavedFilter
 import com.greader.neo.ui.components.RssGlyph
 import com.greader.neo.ui.reader.ReaderScreen
 import kotlinx.coroutines.Job
@@ -159,8 +155,6 @@ fun HomeScreen(
     var deletingFeed by remember { mutableStateOf<FeedEntity?>(null) }
     var confirmMarkAll by remember { mutableStateOf(false) }
     var swipeUndoJob by remember { mutableStateOf<Job?>(null) }
-    var savingFilter by remember { mutableStateOf(false) }
-    var filterName by remember { mutableStateOf("") }
     // Telas largas (tablet): drawer fixo + painel do leitor ao lado da lista.
     val wideLayout = LocalConfiguration.current.screenWidthDp >= 840
     var paneArticleId by remember { mutableStateOf<Long?>(null) }
@@ -255,55 +249,6 @@ fun HomeScreen(
         }
     }
 
-    /** Salva o filtro atual (escopo + busca + opções) com um nome; mesmo nome substitui. */
-    fun saveCurrentFilter(name: String) {
-        val trimmed = name.trim()
-        if (trimmed.isEmpty()) return
-        val current = filter
-        val saved = SavedFilter(
-            name = trimmed,
-            feedId = (current as? FeedFilter.Feed)?.feed?.id,
-            folderUid = (current as? FeedFilter.Folder)?.tag?.uid,
-            query = query.trim(),
-            unreadOnly = settings.listUnreadOnly,
-            sortOldest = settings.listSortOldest,
-        )
-        scope.launch {
-            app.settings.setSavedFilters(
-                settings.savedFilters.filterNot { it.name == trimmed } + saved,
-            )
-            snackbarHostState.showSnackbar(context.getString(R.string.saved_filter_saved))
-        }
-    }
-
-    /** Aplica um filtro salvo; se o feed/pasta não existir mais, avisa. */
-    fun applyFilter(saved: SavedFilter) {
-        val target = when {
-            saved.feedId != null -> feeds.firstOrNull { it.id == saved.feedId }?.let { FeedFilter.Feed(it) }
-            saved.folderUid != null -> tags.firstOrNull { it.uid == saved.folderUid }
-                ?.let { FeedFilter.Folder(it) }
-            else -> FeedFilter.All
-        }
-        if (target == null) {
-            scope.launch { snackbarHostState.showSnackbar(context.getString(R.string.saved_filter_missing)) }
-            return
-        }
-        filter = target
-        query = saved.query
-        searchVisible = saved.query.isNotBlank()
-        selection = emptySet()
-        scope.launch {
-            app.settings.setListUnreadOnly(saved.unreadOnly)
-            app.settings.setListSortOldest(saved.sortOldest)
-        }
-    }
-
-    fun deleteSavedFilter(saved: SavedFilter) {
-        scope.launch {
-            app.settings.setSavedFilters(settings.savedFilters.filterNot { it.name == saved.name })
-        }
-    }
-
     // Sync ao abrir (configurável), apenas quando há sessão.
     LaunchedEffect(Unit) {
         if (app.authManager.state.value is AuthState.Connected) {
@@ -380,16 +325,12 @@ fun HomeScreen(
                                 title = filterTitle,
                                 viewMode = settings.listViewMode,
                                 oldestFirst = settings.listSortOldest,
-                                savedFilters = settings.savedFilters,
                                 onViewMode = { mode ->
                                     scope.launch { app.settings.setListViewMode(mode) }
                                 },
                                 onSortOldest = { oldest ->
                                     scope.launch { app.settings.setListSortOldest(oldest) }
                                 },
-                                onSaveCurrent = { savingFilter = true },
-                                onApply = { saved -> applyFilter(saved) },
-                                onDelete = { saved -> deleteSavedFilter(saved) },
                             )
                         },
                         navigationIcon = {
@@ -694,35 +635,6 @@ fun HomeScreen(
         ) {
             listPane()
         }
-    }
-    // Diálogo para nomear o filtro salvo (escopo + busca + opções atuais).
-    if (savingFilter) {
-        AlertDialog(
-            onDismissRequest = { savingFilter = false },
-            title = { Text(stringResource(R.string.saved_filter_save_current)) },
-            text = {
-                OutlinedTextField(
-                    value = filterName,
-                    onValueChange = { filterName = it },
-                    label = { Text(stringResource(R.string.saved_filter_name)) },
-                    singleLine = true,
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    savingFilter = false
-                    saveCurrentFilter(filterName)
-                    filterName = ""
-                }) {
-                    Text(stringResource(R.string.save))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { savingFilter = false }) {
-                    Text(stringResource(R.string.cancel))
-                }
-            },
-        )
     }
     // Confirmação de remoção de feed (toque longo no drawer), sincronizada com o Feedly.
     deletingFeed?.let { feed ->
@@ -1530,12 +1442,8 @@ private fun TopicSelector(
     title: String,
     viewMode: Int,
     oldestFirst: Boolean,
-    savedFilters: List<SavedFilter>,
     onViewMode: (Int) -> Unit,
     onSortOldest: (Boolean) -> Unit,
-    onSaveCurrent: () -> Unit,
-    onApply: (SavedFilter) -> Unit,
-    onDelete: (SavedFilter) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -1611,51 +1519,6 @@ private fun TopicSelector(
                     expanded = false
                 },
             )
-            HorizontalDivider(Modifier.padding(horizontal = 8.dp))
-            DropdownMenuItem(
-                text = { Text(stringResource(R.string.saved_filter_save_current)) },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Filled.BookmarkAdd,
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp),
-                    )
-                },
-                onClick = {
-                    expanded = false
-                    onSaveCurrent()
-                },
-            )
-            if (savedFilters.isNotEmpty()) {
-                HorizontalDivider(Modifier.padding(horizontal = 8.dp))
-                savedFilters.forEach { saved ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(saved.name, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Filled.Bookmark,
-                                contentDescription = null,
-                                modifier = Modifier.size(18.dp),
-                            )
-                        },
-                        trailingIcon = {
-                            IconButton(onClick = { onDelete(saved) }) {
-                                Icon(
-                                    imageVector = Icons.Filled.Delete,
-                                    contentDescription = stringResource(R.string.cd_delete),
-                                    modifier = Modifier.size(18.dp),
-                                )
-                            }
-                        },
-                        onClick = {
-                            expanded = false
-                            onApply(saved)
-                        },
-                    )
-                }
-            }
         }
     }
 }

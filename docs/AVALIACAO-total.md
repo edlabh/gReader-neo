@@ -73,7 +73,7 @@ Pendentes para uma rodada futura: undo para "marcar tudo como lido", cache offli
 
 - [x] **Desfazer "marcar tudo como lido"**: captura os artigos que estavam não lidos antes da ação e desfaz exatamente esses (local + markers em lote no Feedly). Corrigido também um bug de escopo: marcar tudo dentro de uma **pasta** afetava os outros feeds
 - [x] **Cache offline**: o modo Leitura guarda o conteúdo extraído no banco (migração v1→v2; releituras funcionam offline) + pré-cache de imagens dos artigos recentes em Wi-Fi (preferência em Armazenamento; 60 imagens por sync)
-- [x] **Filtros salvos**: salvar o filtro atual (feed/pasta + busca + não lidos + ordenação) com um nome no seletor de tópico; aplicar e excluir pelo próprio seletor
+- ~~Filtros salvos~~ — removido a pedido: as opções de exibição (modo, ordenação, não lidos, densidade, fonte, linha, miniaturas) já são persistidas automaticamente e reutilizadas
 - [x] **Tablet (2 painéis)**: em telas ≥ 840dp o drawer vira fixo e o leitor abre num painel lateral, sem sair da lista
 - [x] **Testes**: codec dos filtros salvos (round-trip + tolerância a JSON ausente/corrompido)
 
