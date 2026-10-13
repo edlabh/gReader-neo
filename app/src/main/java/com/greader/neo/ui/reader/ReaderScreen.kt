@@ -18,10 +18,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,6 +40,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -107,12 +105,32 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
     /** Registra o WebView atual e o auto-esconder da barra de modos ao rolar. */
     fun attachWebView(webView: WebView) {
         webViewRef = webView
+        // Folga acumulada evita alternar esconder/mostrar com micro-oscilações do scroll.
+        var accumulated = 0
         webView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
             val delta = scrollY - oldScrollY
-            if (delta > 8 && scrollY > 80) {
-                modeBarVisible = false
-            } else if (delta < -8) {
-                modeBarVisible = true
+            if (delta != 0) {
+                if (modeBarVisible) {
+                    if (delta > 0) {
+                        accumulated += delta
+                        if (accumulated > 64 && scrollY > 120) {
+                            modeBarVisible = false
+                            accumulated = 0
+                        }
+                    } else {
+                        accumulated = 0
+                    }
+                } else {
+                    if (delta < 0) {
+                        accumulated -= delta
+                        if (accumulated > 64) {
+                            modeBarVisible = true
+                            accumulated = 0
+                        }
+                    } else {
+                        accumulated = 0
+                    }
+                }
             }
         }
     }
@@ -270,59 +288,9 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                 return@Column
             }
 
-            // Barra de modos compacta (largura do conteúdo, centrada) e retrátil.
-            AnimatedVisibility(
-                visible = modeBarVisible,
-                enter = fadeIn(tween(160)) + slideInVertically(tween(200)) { -it },
-                exit = fadeOut(tween(120)) + slideOutVertically(tween(160)) { -it },
-            ) {
-                SingleChoiceSegmentedButtonRow(
-                    modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
-                ) {
-                    ReaderMode.entries.forEachIndexed { index, entry ->
-                        SegmentedButton(
-                            selected = mode == entry,
-                            onClick = {
-                                if (entry == ReaderMode.WEB && !embedded) {
-                                    // Navegador externo: abre direto, sem trocar de modo.
-                                    current.link?.let { openInBrowser(context, it) }
-                                } else {
-                                    mode = entry
-                                }
-                            },
-                            shape = SegmentedButtonDefaults.itemShape(index, ReaderMode.entries.size),
-                        ) {
-                            Text(
-                                when (entry) {
-                                    ReaderMode.FEED -> stringResource(R.string.reader_mode_feed)
-                                    ReaderMode.READING -> stringResource(R.string.reader_mode_reading)
-                                    ReaderMode.WEB -> stringResource(R.string.reader_mode_web)
-                                },
-                            )
-                        }
-                    }
-                }
-            }
-            if (!modeBarVisible) {
-                // Alça discreta: toque (ou rolar para cima) para trazer os modos de volta.
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(24.dp)
-                        .clickable { modeBarVisible = true },
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(width = 36.dp, height = 4.dp)
-                            .clip(RoundedCornerShape(2.dp))
-                            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)),
-                    )
-                }
-            } else {
-                Spacer(Modifier.height(4.dp))
-            }
-
+            // Conteúdo em tela cheia; a barra de modos flutua por cima sem redimensionar
+            // o WebView (evita reflow/piscadas ao esconder e mostrar).
+            Box(Modifier.fillMaxSize()) {
             when (mode) {
                 ReaderMode.FEED -> ArticleWebView(
                     html = buildReaderHtml(
@@ -380,6 +348,38 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                     )
                 }
             }
+
+            // Barra de modos flutuante (não altera o tamanho do WebView → sem piscadas).
+            ReaderModeBar(
+                visible = modeBarVisible,
+                mode = mode,
+                embedded = embedded,
+                onSelect = { entry -> mode = entry },
+                onOpenExternal = { current.link?.let { openInBrowser(context, it) } },
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 8.dp),
+            )
+
+            // Alça flutuante discreta: toque (ou rolar para cima) para trazer os modos.
+            if (!modeBarVisible) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = 4.dp)
+                        .size(width = 108.dp, height = 28.dp)
+                        .clickable { modeBarVisible = true },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(width = 36.dp, height = 4.dp)
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)),
+                    )
+                }
+            }
+            }
         }
     }
 }
@@ -390,6 +390,57 @@ private fun Centered(content: @Composable () -> Unit) {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) { content() }
+}
+
+/** Barra flutuante de seleção de modo: compacta e retrátil (flutua sobre o artigo). */
+@Composable
+private fun ReaderModeBar(
+    visible: Boolean,
+    mode: ReaderMode,
+    embedded: Boolean,
+    onSelect: (ReaderMode) -> Unit,
+    onOpenExternal: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    AnimatedVisibility(
+        visible = visible,
+        modifier = modifier,
+        enter = fadeIn(tween(160)) + slideInVertically(tween(200)) { -it },
+        exit = fadeOut(tween(120)) + slideOutVertically(tween(160)) { -it },
+    ) {
+        Surface(
+            shape = RoundedCornerShape(24.dp),
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.96f),
+            shadowElevation = 3.dp,
+        ) {
+            SingleChoiceSegmentedButtonRow(
+                modifier = Modifier.padding(horizontal = 2.dp, vertical = 2.dp),
+            ) {
+                ReaderMode.entries.forEachIndexed { index, entry ->
+                    SegmentedButton(
+                        selected = mode == entry,
+                        onClick = {
+                            if (entry == ReaderMode.WEB && !embedded) {
+                                // Navegador externo: abre direto, sem trocar de modo.
+                                onOpenExternal()
+                            } else {
+                                onSelect(entry)
+                            }
+                        },
+                        shape = SegmentedButtonDefaults.itemShape(index, ReaderMode.entries.size),
+                    ) {
+                        Text(
+                            when (entry) {
+                                ReaderMode.FEED -> stringResource(R.string.reader_mode_feed)
+                                ReaderMode.READING -> stringResource(R.string.reader_mode_reading)
+                                ReaderMode.WEB -> stringResource(R.string.reader_mode_web)
+                            },
+                        )
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable
