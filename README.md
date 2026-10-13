@@ -1,13 +1,13 @@
 # gReader Neo
 
-Leitor de RSS/feeds moderno para **Android 15+**, reconstruído a partir da engenharia reversa do gReader 5.2.2 (pasta `analysis/`). Kotlin + Jetpack Compose + Material 3, offline-first, **sincronização somente com Feedly**.
+Leitor de RSS/feeds moderno para **Android 13+**, reconstruído a partir da engenharia reversa do gReader 5.2.2 (pasta `analysis/`). Kotlin + Jetpack Compose + Material 3, offline-first, **sincronização somente com Feedly**.
 
 ## Sobre o app
 
 | Campo | Valor |
 | --- | --- |
 | Package | `com.greader.neo` |
-| minSdk / targetSdk / compileSdk | 35 (Android 15) / 36 (Android 16) / 37.0 |
+| minSdk / targetSdk / compileSdk | 33 (Android 13) / 36 (Android 16) / 37.0 |
 | Stack | Kotlin 2.4.21 · Compose BOM 2026.09 · Material 3 · Room · DataStore · WorkManager · OkHttp/Retrofit + kotlinx.serialization · Coil · Readability4J |
 | Escopo completo | [`docs/ESCOPO-novo-app.md`](docs/ESCOPO-novo-app.md) |
 
