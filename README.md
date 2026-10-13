@@ -75,7 +75,10 @@ O fluxo é Authorization Code via Custom Tabs; o retorno chega pelo deep link
 
 Requisitos: JDK 17+ e Android SDK com platform 37.0 (compileSdk 37; já configurado em `local.properties`).
 
-O APK release sai **sem assinatura** (`app-release-unsigned.apk`) — para distribuir, configure um `signingConfig` no `app/build.gradle.kts`.
+A release é **assinada** com a keystore local configurada em `local.properties`
+(`release.storeFile`, `release.storePassword`, `release.keyAlias`, `release.keyPassword`).
+A keystore fica em `~/.local/share/greader-neo/release.jks` (**fora do repositório — faça backup!**).
+Sem essas propriedades, o build gera um APK sem assinatura (`app-release-unsigned.apk`).
 
 ### Estrutura do app
 

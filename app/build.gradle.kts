@@ -24,7 +24,7 @@ android {
         minSdk = 35
         targetSdk = 36
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -44,8 +44,26 @@ android {
         )
     }
 
+    signingConfigs {
+        // Assinatura da release: keystore local fora do repositório (~/.local/share/greader-neo/),
+        // com caminho e senhas em local.properties (não versionado). Sem essas propriedades,
+        // o build segue gerando APK sem assinatura.
+        val storePath = localProperties.getProperty("release.storeFile")
+        if (storePath != null) {
+            create("release") {
+                storeFile = file(storePath)
+                storePassword = localProperties.getProperty("release.storePassword")
+                keyAlias = localProperties.getProperty("release.keyAlias")
+                keyPassword = localProperties.getProperty("release.keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (localProperties.getProperty("release.storeFile") != null) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
