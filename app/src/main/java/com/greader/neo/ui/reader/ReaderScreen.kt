@@ -7,6 +7,14 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +23,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
@@ -44,6 +54,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -80,6 +91,8 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
     var loading by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
     var webViewRef by remember { mutableStateOf<WebView?>(null) }
+    // Barra de modos retrátil: esconde ao rolar para baixo e volta ao rolar para cima.
+    var modeBarVisible by remember { mutableStateOf(true) }
 
     // Voltar: navega no histórico do WebView embutido antes de sair da tela.
     BackHandler {
@@ -91,8 +104,23 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
         }
     }
 
+    /** Registra o WebView atual e o auto-esconder da barra de modos ao rolar. */
+    fun attachWebView(webView: WebView) {
+        webViewRef = webView
+        webView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            val delta = scrollY - oldScrollY
+            if (delta > 8 && scrollY > 80) {
+                modeBarVisible = false
+            } else if (delta < -8) {
+                modeBarVisible = true
+            }
+        }
+    }
+
     // Carrega o artigo e marca como lido (offline-first: local + outbox).
     LaunchedEffect(articleId) {
+        // Novo artigo: barra de modos visível de novo.
+        modeBarVisible = true
         val loaded = app.database.articleDao().byId(articleId)
         article = loaded
         feedTitle = loaded?.let { app.database.feedDao().byId(it.feedId)?.title }
@@ -233,6 +261,7 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (current == null) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -241,35 +270,58 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                 return@Column
             }
 
-            SingleChoiceSegmentedButtonRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+            // Barra de modos compacta (largura do conteúdo, centrada) e retrátil.
+            AnimatedVisibility(
+                visible = modeBarVisible,
+                enter = fadeIn(tween(160)) + slideInVertically(tween(200)) { -it },
+                exit = fadeOut(tween(120)) + slideOutVertically(tween(160)) { -it },
             ) {
-                ReaderMode.entries.forEachIndexed { index, entry ->
-                    SegmentedButton(
-                        selected = mode == entry,
-                        onClick = {
-                            if (entry == ReaderMode.WEB && !embedded) {
-                                // Navegador externo: abre direto, sem trocar de modo.
-                                current.link?.let { openInBrowser(context, it) }
-                            } else {
-                                mode = entry
-                            }
-                        },
-                        shape = SegmentedButtonDefaults.itemShape(index, ReaderMode.entries.size),
-                    ) {
-                        Text(
-                            when (entry) {
-                                ReaderMode.FEED -> stringResource(R.string.reader_mode_feed)
-                                ReaderMode.READING -> stringResource(R.string.reader_mode_reading)
-                                ReaderMode.WEB -> stringResource(R.string.reader_mode_web)
+                SingleChoiceSegmentedButtonRow(
+                    modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
+                ) {
+                    ReaderMode.entries.forEachIndexed { index, entry ->
+                        SegmentedButton(
+                            selected = mode == entry,
+                            onClick = {
+                                if (entry == ReaderMode.WEB && !embedded) {
+                                    // Navegador externo: abre direto, sem trocar de modo.
+                                    current.link?.let { openInBrowser(context, it) }
+                                } else {
+                                    mode = entry
+                                }
                             },
-                        )
+                            shape = SegmentedButtonDefaults.itemShape(index, ReaderMode.entries.size),
+                        ) {
+                            Text(
+                                when (entry) {
+                                    ReaderMode.FEED -> stringResource(R.string.reader_mode_feed)
+                                    ReaderMode.READING -> stringResource(R.string.reader_mode_reading)
+                                    ReaderMode.WEB -> stringResource(R.string.reader_mode_web)
+                                },
+                            )
+                        }
                     }
                 }
             }
-            Spacer(Modifier.height(8.dp))
+            if (!modeBarVisible) {
+                // Alça discreta: toque (ou rolar para cima) para trazer os modos de volta.
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(24.dp)
+                        .clickable { modeBarVisible = true },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(width = 36.dp, height = 4.dp)
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)),
+                    )
+                }
+            } else {
+                Spacer(Modifier.height(4.dp))
+            }
 
             when (mode) {
                 ReaderMode.FEED -> ArticleWebView(
@@ -284,7 +336,7 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                     baseUrl = current.link,
                     jsEnabled = false,
                     allowInternalNavigation = embedded,
-                    onCreated = { webViewRef = it },
+                    onCreated = ::attachWebView,
                 )
 
                 ReaderMode.READING -> when {
@@ -310,7 +362,7 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                             baseUrl = current.link,
                             jsEnabled = false,
                             allowInternalNavigation = embedded,
-                            onCreated = { webViewRef = it },
+                            onCreated = ::attachWebView,
                         )
                     }
 
@@ -324,7 +376,7 @@ fun ReaderScreen(articleId: Long, onBack: () -> Unit) {
                         url = current.link,
                         jsEnabled = true,
                         allowInternalNavigation = embedded,
-                        onCreated = { webViewRef = it },
+                        onCreated = ::attachWebView,
                     )
                 }
             }
